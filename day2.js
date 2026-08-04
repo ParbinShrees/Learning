@@ -61,3 +61,4 @@ console.log(fruits.slice(1,3, "Lemon"))
 
 //Array Splice()
 console.log(fruits.splice(2,0, "Kiwi"))
+
