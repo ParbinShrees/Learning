@@ -49,7 +49,7 @@ const fruits = ["apple", "banana", "cherry", "date", "Mango"]
 //console.log (arr.flat());
 
 //Array flatMap()
-const myArr = [1, 3, 4, 5, 6];
+const myArr = [1, 3, 4, 5, 6,7,8,9,];
 
 const newArr = myArr.flatMap((num) => [num * 2]);
 
