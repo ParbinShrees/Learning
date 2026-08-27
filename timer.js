@@ -1,5 +1,14 @@
+const timerHours =
+    document.getElementById("timerHours");
+
 const timerMinutes =
     document.getElementById("timerMinutes");
+
+const timerSecondsInput =
+    document.getElementById("timerSeconds");
+
+const timerDisplay =
+    document.getElementById("timerDisplay");
 
 const startTimer =
     document.getElementById("startTimer");
@@ -10,96 +19,175 @@ const pauseTimer =
 const resetTimer =
     document.getElementById("resetTimer");
 
-const timerDisplay =
-    document.getElementById("timerDisplay");
+const timerProgress =
+    document.getElementById("timerProgress");
 
 
-let timerSeconds = 0;
+let totalTimerSeconds = 0;
+
+let remainingTimerSeconds = 0;
 
 let timerInterval = null;
 
 
-const updateTimerDisplay = () => {
+const updateTimer = () => {
+
+    const hours =
+        Math.floor(
+            remainingTimerSeconds / 3600
+        );
 
     const minutes =
-        Math.floor(timerSeconds / 60);
+        Math.floor(
+            (remainingTimerSeconds % 3600) / 60
+        );
 
     const seconds =
-        timerSeconds % 60;
+        remainingTimerSeconds % 60;
 
 
     timerDisplay.textContent =
+        `${String(hours).padStart(2, "0")}:` +
         `${String(minutes).padStart(2, "0")}:` +
         `${String(seconds).padStart(2, "0")}`;
+
+
+    if (totalTimerSeconds > 0) {
+
+        const progress =
+            (
+                (
+                    totalTimerSeconds -
+                    remainingTimerSeconds
+                ) /
+                totalTimerSeconds
+            ) * 100;
+
+
+        timerProgress.style.width =
+            `${progress}%`;
+
+    }
+
 };
 
 
-startTimer.addEventListener("click", () => {
+startTimer.addEventListener(
+    "click",
+    () => {
 
-    if (timerInterval !== null) {
-        return;
-    }
-
-
-    if (timerSeconds === 0) {
-
-        const minutes =
-            Number(timerMinutes.value);
-
-        if (minutes <= 0) {
-            alert("Enter a valid number of minutes.");
-            return;
-        }
-
-        timerSeconds = minutes * 60;
-    }
-
-
-    updateTimerDisplay();
-
-
-    timerInterval = setInterval(() => {
-
-        if (timerSeconds <= 0) {
-
-            clearInterval(timerInterval);
-
-            timerInterval = null;
-
-            alert("Timer finished!");
-
+        if (timerInterval) {
             return;
         }
 
 
-        timerSeconds--;
+        if (remainingTimerSeconds === 0) {
 
-        updateTimerDisplay();
+            const hours =
+                Number(timerHours.value) || 0;
 
-    }, 1000);
-});
+            const minutes =
+                Number(timerMinutes.value) || 0;
 
-
-pauseTimer.addEventListener("click", () => {
-
-    clearInterval(timerInterval);
-
-    timerInterval = null;
-});
+            const seconds =
+                Number(
+                    timerSecondsInput.value
+                ) || 0;
 
 
-resetTimer.addEventListener("click", () => {
-
-    clearInterval(timerInterval);
-
-    timerInterval = null;
-
-    timerSeconds = 0;
-
-    timerMinutes.value = "";
-
-    updateTimerDisplay();
-});
+            totalTimerSeconds =
+                hours * 3600 +
+                minutes * 60 +
+                seconds;
 
 
-updateTimerDisplay();
+            remainingTimerSeconds =
+                totalTimerSeconds;
+
+
+            if (totalTimerSeconds <= 0) {
+
+                alert(
+                    "Enter a valid timer."
+                );
+
+                return;
+            }
+
+        }
+
+
+        timerInterval =
+            setInterval(() => {
+
+                if (
+                    remainingTimerSeconds <= 0
+                ) {
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+                    timerInterval = null;
+
+                    alert(
+                        "Timer finished!"
+                    );
+
+                    return;
+                }
+
+
+                remainingTimerSeconds--;
+
+                updateTimer();
+
+            }, 1000);
+
+    }
+);
+
+
+pauseTimer.addEventListener(
+    "click",
+    () => {
+
+        clearInterval(
+            timerInterval
+        );
+
+        timerInterval = null;
+
+    }
+);
+
+
+resetTimer.addEventListener(
+    "click",
+    () => {
+
+        clearInterval(
+            timerInterval
+        );
+
+        timerInterval = null;
+
+        totalTimerSeconds = 0;
+
+        remainingTimerSeconds = 0;
+
+        timerHours.value = "";
+
+        timerMinutes.value = "";
+
+        timerSecondsInput.value = "";
+
+        timerProgress.style.width = "0%";
+
+        updateTimer();
+
+    }
+);
+
+
+updateTimer();
