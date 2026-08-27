@@ -1,15 +1,74 @@
 const clock = document.getElementById("time");
+const dateDisplay = document.getElementById("date");
+const dayName = document.getElementById("dayName");
+
+let is24Hour = true;
+let showSeconds = true;
+
 
 const updateClock = () => {
-    const date = new Date();
 
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    const seconds = String(date.getSeconds()).padStart(2, "0");
+    const now = new Date();
 
-    clock.textContent = `${hours}:${minutes}:${seconds}`;
+    let options = {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: !is24Hour
+    };
+
+    if (showSeconds) {
+        options.second = "2-digit";
+    }
+
+
+    const time = now.toLocaleTimeString(
+        "en-US",
+        options
+    );
+
+
+    clock.textContent = time;
+
+
+    dateDisplay.textContent =
+        now.toLocaleDateString(
+            "en-US",
+            {
+                weekday: "long",
+                month: "long",
+                day: "numeric",
+                year: "numeric"
+            }
+        );
+
+
+    dayName.textContent =
+        now.toLocaleDateString(
+            "en-US",
+            {
+                weekday: "long"
+            }
+        );
+
 };
+
 
 updateClock();
 
 setInterval(updateClock, 1000);
+
+
+// Make settings.js able to control these
+window.clockSettings = {
+
+    set24Hour(value) {
+        is24Hour = value;
+        updateClock();
+    },
+
+    setShowSeconds(value) {
+        showSeconds = value;
+        updateClock();
+    }
+
+};
