@@ -1,136 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>DOM Full Demo</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        max-width: 600px;
-        margin: 30px auto;
-        padding: 0 20px;
-        background: #fafafa;
-      }
-      body.dark {
-        background: #111;
-        color: #eee;
-      }
-      .info {
-        padding: 6px;
-        border-left: 4px solid #888;
-        margin: 6px 0;
-      }
-      .highlight {
-        background: yellow;
-        font-weight: bold;
-      }
-      #box {
-        width: 200px;
-        height: 100px;
-        background: lightgray;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 12px 0;
-      }
-      button {
-        padding: 8px 12px;
-        margin: 4px 4px 4px 0;
-        cursor: pointer;
-      }
-      input,
-      select {
-        padding: 6px;
-        margin: 4px 0;
-      }
-      ul li {
-        padding: 4px;
-      }
-      .done {
-        text-decoration: line-through;
-        opacity: 0.6;
-      }
-      #colors {
-        padding: 12px;
-        border: 2px dashed #999;
-        margin: 10px 0;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Selecting demo (sections 1) -->
-    <h1 id="title">Hello</h1>
-    <p class="info">First info paragraph</p>
-    <p class="info">Second info paragraph</p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Content demo (section 2) -->
-    <p id="content">Original content</p>
+    <title>Digital Clock</title>
 
-    <!-- Attribute demo (section 3) -->
-    <img
-      id="photo"
-      alt="placeholder"
-      title="hover me"
-      data-animal="dog"
-      width="80"
-      height="80"
-    />
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    <!-- Style demo (section 4) -->
-    <div id="box">Hover me</div>
+<body>
 
-    <!-- Traversal demo (section 5) -->
-    <ul id="family">
-      <li>First child</li>
-      <li id="middle">Middle child</li>
-      <li>Last child</li>
-    </ul>
+    <div class="clock-container">
+        <h1>Digital Clock</h1>
 
-    <!-- Insert / remove demo (sections 6-7) -->
-    <ul id="fruits">
-      <li id="banana">Banana</li>
-    </ul>
-
-    <!-- Event demos (section 8) -->
-    <button id="click-btn">Click / double-click me</button>
-    <button id="once-btn">I only work once</button>
-    <input id="name-input" placeholder="Type something..." />
-    <p id="live-preview"></p>
-    <select id="lang-select">
-      <option value="">-- pick one --</option>
-      <option>HTML</option>
-      <option>CSS</option>
-      <option>JavaScript</option>
-    </select>
-
-    <!-- Bubbling / delegation demo (section 9) -->
-    <div id="colors">
-      One listener on this DIV handles all three buttons:
-      <button data-color="red">Red</button>
-      <button data-color="green">Green</button>
-      <button data-color="blue">Blue</button>
+        <div id="time">00:00:00</div>
     </div>
 
-    <!-- Form demo (section 10) -->
-    <form id="login">
-      <input id="user" placeholder="username" />
-      <button type="submit">Login</button>
-    </form>
-    <p id="login-msg">Login required</p>
+    <script src="clock.js"></script>
 
-    <!-- Mini project: to-do (section 11) -->
-    <h2>To-Do</h2>
-    <form id="todo-form">
-      <input id="todo-input" placeholder="New task..." />
-      <button type="submit">Add</button>
-    </form>
-    <ul id="todo-list"></ul>
-    <p id="todo-count">0 tasks</p>
-
-    <!-- Theme toggle (section 12) -->
-    <hr />
-    <button id="theme-btn">Toggle Dark Mode</button>
-
-    <script src="script.js"></script>
-  </body>
+</body>
 </html>
