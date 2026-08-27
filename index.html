@@ -1,102 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Digital Clock App</title>
+    <title>Time Dashboard</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <main class="app">
+<div class="app">
 
-        <!-- Header -->
-        <header class="header">
-            <h1>Digital Clock</h1>
+    <!-- ================= HEADER ================= -->
 
-            <button id="themeButton">Light Mode</button>
-        </header>
+    <header class="topbar">
+
+        <div>
+            <p class="small-title">TIME DASHBOARD</p>
+            <h1>My Clock</h1>
+        </div>
+
+        <div class="top-actions">
+            <button id="formatButton">24H</button>
+            <button id="themeButton">Light</button>
+        </div>
+
+    </header>
 
 
-        <!-- Clock -->
-        <section class="clock-section">
-            <div id="time">00:00:00</div>
+    <!-- ================= MAIN CLOCK ================= -->
 
-            <div id="date">Loading date...</div>
-        </section>
+    <section class="hero-card">
+
+        <p id="dayName">Thursday</p>
+
+        <div id="time">
+            00:00:00
+        </div>
+
+        <p id="date">
+            Loading date...
+        </p>
+
+        <p id="location">
+            Kathmandu, Nepal
+        </p>
+
+    </section>
 
 
-        <!-- Alarm -->
-        <section class="card">
-            <h2>Alarm</h2>
+    <!-- ================= DASHBOARD GRID ================= -->
 
-            <div class="input-group">
-                <input type="time" id="alarmTime">
+    <section class="dashboard-grid">
 
-                <button id="setAlarmButton">
-                    Set Alarm
+
+        <!-- ================= ALARM ================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+                <div>
+                    <p class="card-label">ALARM</p>
+                    <h2>Alarm</h2>
+                </div>
+
+                <span id="alarmCount">0 alarms</span>
+            </div>
+
+
+            <div class="alarm-form">
+
+                <input
+                    type="time"
+                    id="alarmInput"
+                >
+
+                <button id="addAlarm">
+                    Add Alarm
                 </button>
+
             </div>
 
-            <p id="alarmStatus">No alarm set</p>
-        </section>
 
-
-        <!-- Stopwatch -->
-        <section class="card">
-            <h2>Stopwatch</h2>
-
-            <div id="stopwatchDisplay">
-                00:00:00
+            <div id="alarmList" class="alarm-list">
+                <p class="empty-message">
+                    No alarms set
+                </p>
             </div>
 
-            <div class="buttons">
-                <button id="startStopwatch">Start</button>
-                <button id="pauseStopwatch">Pause</button>
-                <button id="resetStopwatch">Reset</button>
+        </div>
+
+
+        <!-- ================= STOPWATCH ================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+                <div>
+                    <p class="card-label">STOPWATCH</p>
+                    <h2>Stopwatch</h2>
+                </div>
             </div>
-        </section>
 
 
-        <!-- Timer -->
-        <section class="card">
-            <h2>Countdown Timer</h2>
+            <div
+                id="stopwatchDisplay"
+                class="big-display"
+            >
+                00:00:00.00
+            </div>
 
-            <div class="input-group">
+
+            <div class="button-row">
+
+                <button id="startStopwatch">
+                    Start
+                </button>
+
+                <button id="lapStopwatch">
+                    Lap
+                </button>
+
+                <button id="resetStopwatch">
+                    Reset
+                </button>
+
+            </div>
+
+
+            <div id="laps" class="laps"></div>
+
+        </div>
+
+
+        <!-- ================= TIMER ================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+                <div>
+                    <p class="card-label">COUNTDOWN</p>
+                    <h2>Timer</h2>
+                </div>
+            </div>
+
+
+            <div class="timer-inputs">
+
+                <input
+                    type="number"
+                    id="timerHours"
+                    placeholder="HH"
+                    min="0"
+                >
+
+                <span>:</span>
+
                 <input
                     type="number"
                     id="timerMinutes"
-                    placeholder="Minutes"
-                    min="1"
+                    placeholder="MM"
+                    min="0"
+                    max="59"
                 >
 
+                <span>:</span>
+
+                <input
+                    type="number"
+                    id="timerSeconds"
+                    placeholder="SS"
+                    min="0"
+                    max="59"
+                >
+
+            </div>
+
+
+            <div
+                id="timerDisplay"
+                class="big-display"
+            >
+                00:00:00
+            </div>
+
+
+            <div class="progress-container">
+
+                <div id="timerProgress"></div>
+
+            </div>
+
+
+            <div class="button-row">
+
                 <button id="startTimer">
-                    Start Timer
+                    Start
                 </button>
+
+                <button id="pauseTimer">
+                    Pause
+                </button>
+
+                <button id="resetTimer">
+                    Reset
+                </button>
+
             </div>
 
-            <div id="timerDisplay">
-                00:00
+        </div>
+
+
+        <!-- ================= WORLD CLOCK ================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+                    <p class="card-label">WORLD CLOCK</p>
+                    <h2>World Time</h2>
+                </div>
+
             </div>
 
-            <div class="buttons">
-                <button id="pauseTimer">Pause</button>
-                <button id="resetTimer">Reset</button>
+
+            <div id="worldClocks">
+
+                <div class="world-city">
+                    <div>
+                        <strong>Kathmandu</strong>
+                        <span>Nepal</span>
+                    </div>
+
+                    <b id="kathmanduTime">
+                        --:--:--
+                    </b>
+                </div>
+
+
+                <div class="world-city">
+                    <div>
+                        <strong>London</strong>
+                        <span>United Kingdom</span>
+                    </div>
+
+                    <b id="londonTime">
+                        --:--:--
+                    </b>
+                </div>
+
+
+                <div class="world-city">
+                    <div>
+                        <strong>New York</strong>
+                        <span>United States</span>
+                    </div>
+
+                    <b id="newYorkTime">
+                        --:--:--
+                    </b>
+                </div>
+
+
+                <div class="world-city">
+                    <div>
+                        <strong>Tokyo</strong>
+                        <span>Japan</span>
+                    </div>
+
+                    <b id="tokyoTime">
+                        --:--:--
+                    </b>
+                </div>
+
             </div>
-        </section>
 
-    </main>
+        </div>
 
 
-    <!-- JavaScript files -->
-    <script src="clock.js"></script>
-    <script src="alarm.js"></script>
-    <script src="stopwatch.js"></script>
-    <script src="timer.js"></script>
-    <script src="theme.js"></script>
+        <!-- ================= SETTINGS ================= -->
+
+        <div class="card settings-card">
+
+            <div class="card-header">
+
+                <div>
+                    <p class="card-label">SETTINGS</p>
+                    <h2>Preferences</h2>
+                </div>
+
+            </div>
+
+
+            <label class="setting">
+
+                <span>
+                    Show seconds
+                </span>
+
+                <input
+                    type="checkbox"
+                    id="showSeconds"
+                    checked
+                >
+
+            </label>
+
+
+            <label class="setting">
+
+                <span>
+                    24-hour format
+                </span>
+
+                <input
+                    type="checkbox"
+                    id="twentyFourHour"
+                    checked
+                >
+
+            </label>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+        <p>Time Dashboard</p>
+    </footer>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="js/clock.js"></script>
+<script src="js/alarm.js"></script>
+<script src="js/stopwatch.js"></script>
+<script src="js/timer.js"></script>
+<script src="js/worldclock.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/settings.js"></script>
 
 </body>
+
 </html>
