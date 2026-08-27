@@ -1,52 +1,170 @@
-const alarmInput = document.getElementById("alarmTime");
-const setAlarmButton = document.getElementById("setAlarmButton");
-const alarmStatus = document.getElementById("alarmStatus");
+const alarmInput =
+    document.getElementById("alarmInput");
 
-let alarmTime = null;
-let alarmTriggered = false;
+const addAlarm =
+    document.getElementById("addAlarm");
+
+const alarmList =
+    document.getElementById("alarmList");
+
+const alarmCount =
+    document.getElementById("alarmCount");
 
 
-setAlarmButton.addEventListener("click", () => {
+let alarms =
+    JSON.parse(
+        localStorage.getItem("alarms")
+    ) || [];
 
-    if (alarmInput.value === "") {
-        alarmStatus.textContent = "Please select a time.";
+
+const saveAlarms = () => {
+
+    localStorage.setItem(
+        "alarms",
+        JSON.stringify(alarms)
+    );
+
+};
+
+
+const renderAlarms = () => {
+
+    alarmList.innerHTML = "";
+
+
+    if (alarms.length === 0) {
+
+        alarmList.innerHTML =
+            `<p class="empty-message">
+                No alarms set
+            </p>`;
+
+    }
+
+
+    alarms.forEach((alarm, index) => {
+
+        const item =
+            document.createElement("div");
+
+        item.className = "alarm-item";
+
+
+        item.innerHTML = `
+            <span class="alarm-time">
+                ${alarm}
+            </span>
+
+            <button
+                class="delete-alarm"
+                data-index="${index}"
+            >
+                Delete
+            </button>
+        `;
+
+
+        alarmList.appendChild(item);
+
+    });
+
+
+    alarmCount.textContent =
+        `${alarms.length} ${
+            alarms.length === 1
+                ? "alarm"
+                : "alarms"
+        }`;
+
+};
+
+
+addAlarm.addEventListener("click", () => {
+
+    const value = alarmInput.value;
+
+
+    if (!value) {
+
+        alert("Please select an alarm time.");
+
         return;
     }
 
-    alarmTime = alarmInput.value;
-    alarmTriggered = false;
 
-    alarmStatus.textContent =
-        `Alarm set for ${alarmTime}`;
+    if (alarms.includes(value)) {
+
+        alert("This alarm already exists.");
+
+        return;
+    }
+
+
+    alarms.push(value);
+
+    alarms.sort();
+
+    saveAlarms();
+
+    renderAlarms();
+
+    alarmInput.value = "";
+
+});
+
+
+alarmList.addEventListener("click", (event) => {
+
+    if (
+        event.target.classList.contains(
+            "delete-alarm"
+        )
+    ) {
+
+        const index =
+            Number(
+                event.target.dataset.index
+            );
+
+        alarms.splice(index, 1);
+
+        saveAlarms();
+
+        renderAlarms();
+
+    }
+
 });
 
 
 setInterval(() => {
 
-    if (alarmTime === null || alarmTriggered) {
+    const now = new Date();
+
+
+    const currentTime =
+        `${String(now.getHours()).padStart(2, "0")}:` +
+        `${String(now.getMinutes()).padStart(2, "0")}`;
+
+
+    const currentSecond =
+        now.getSeconds();
+
+
+    if (currentSecond !== 0) {
         return;
     }
 
-    const now = new Date();
 
-    const currentHours =
-        String(now.getHours()).padStart(2, "0");
+    if (alarms.includes(currentTime)) {
 
-    const currentMinutes =
-        String(now.getMinutes()).padStart(2, "0");
+        alert(
+            `Alarm: ${currentTime}`
+        );
 
-    const currentTime =
-        `${currentHours}:${currentMinutes}`;
-
-
-    if (currentTime === alarmTime) {
-
-        alarmStatus.textContent =
-            "Alarm ringing!";
-
-        alert("Alarm!");
-
-        alarmTriggered = true;
     }
 
 }, 1000);
+
+
+renderAlarms();
