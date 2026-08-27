@@ -4,227 +4,705 @@
     box-sizing: border-box;
 }
 
+
+:root {
+    --background: #0b1120;
+    --card: #111827;
+    --card-light: #182235;
+
+    --text: #f8fafc;
+    --muted: #94a3b8;
+
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+
+    --border: #263247;
+
+    --danger: #ef4444;
+}
+
+
 body {
     min-height: 100vh;
 
-    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(
+            circle at top,
+            #172554 0%,
+            #0b1120 45%,
+            #060a13 100%
+        );
 
-    background: #111827;
-    color: white;
+    color: var(--text);
+
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
 
     padding: 30px;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease;
 }
+
+
+button,
+input {
+    font: inherit;
+}
+
+
+button {
+    border: none;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+
+button:active {
+    transform: translateY(0);
+}
+
 
 .app {
     width: 100%;
-    max-width: 700px;
+    max-width: 1100px;
 
     margin: auto;
 }
 
 
-/* Header */
+/* ================= HEADER ================= */
 
-.header {
+
+.topbar {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
 
-    margin-bottom: 30px;
-}
-
-.header h1 {
-    font-size: 32px;
-}
-
-button {
-    border: none;
-
-    padding: 10px 18px;
-
-    border-radius: 8px;
-
-    background: #2563eb;
-    color: white;
-
-    cursor: pointer;
-
-    font-size: 15px;
-}
-
-button:hover {
-    opacity: 0.85;
-}
-
-
-/* Clock */
-
-.clock-section {
-    text-align: center;
-
-    padding: 50px 20px;
-
     margin-bottom: 25px;
-
-    background: #1f2937;
-
-    border-radius: 15px;
-}
-
-#time {
-    font-size: 70px;
-
-    font-weight: bold;
-
-    letter-spacing: 4px;
-}
-
-#date {
-    margin-top: 15px;
-
-    font-size: 18px;
-
-    color: #d1d5db;
 }
 
 
-/* Cards */
+.small-title {
+    color: var(--primary);
 
-.card {
-    background: #1f2937;
+    font-size: 12px;
 
-    padding: 25px;
+    font-weight: 700;
 
-    margin-bottom: 20px;
+    letter-spacing: 3px;
 
-    border-radius: 12px;
-}
-
-.card h2 {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 
-/* Inputs */
+.topbar h1 {
+    font-size: 30px;
+}
 
-.input-group {
+
+.top-actions {
     display: flex;
 
     gap: 10px;
 }
 
-input {
+
+.top-actions button {
+    padding: 10px 18px;
+
+    border-radius: 9px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    color: var(--text);
+}
+
+
+/* ================= HERO ================= */
+
+
+.hero-card {
+    text-align: center;
+
+    padding: 60px 20px;
+
+    margin-bottom: 25px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(30, 41, 59, 0.9),
+            rgba(15, 23, 42, 0.95)
+        );
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+
+#dayName {
+    color: var(--muted);
+
+    font-size: 18px;
+
+    margin-bottom: 10px;
+}
+
+
+#time {
+    font-size: clamp(55px, 10vw, 110px);
+
+    line-height: 1;
+
+    font-weight: 700;
+
+    letter-spacing: 5px;
+
+    margin-bottom: 20px;
+}
+
+
+#date {
+    font-size: 18px;
+
+    color: var(--muted);
+
+    margin-bottom: 8px;
+}
+
+
+#location {
+    color: var(--primary);
+
+    font-size: 14px;
+}
+
+
+/* ================= GRID ================= */
+
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+
+/* ================= CARD ================= */
+
+
+.card {
+    background: rgba(17, 24, 39, 0.9);
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.2);
+}
+
+
+.card-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    margin-bottom: 25px;
+}
+
+
+.card-label {
+    color: var(--primary);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 5px;
+}
+
+
+.card h2 {
+    font-size: 22px;
+}
+
+
+.card-header > span {
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+/* ================= INPUTS ================= */
+
+
+input[type="time"],
+input[type="number"] {
+    background: #0f172a;
+
+    color: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
     padding: 11px;
 
-    border: none;
-
-    border-radius: 7px;
-
-    font-size: 16px;
+    outline: none;
 }
 
 
-/* Status */
-
-#alarmStatus {
-    margin-top: 15px;
-
-    color: #d1d5db;
+input:focus {
+    border-color: var(--primary);
 }
 
 
-/* Stopwatch */
+.alarm-form {
+    display: flex;
 
-#stopwatchDisplay {
+    gap: 10px;
+}
+
+
+.alarm-form input {
+    flex: 1;
+}
+
+
+.alarm-form button {
+    background: var(--primary);
+
+    color: white;
+
+    padding: 0 20px;
+
+    border-radius: 8px;
+}
+
+
+.alarm-form button:hover {
+    background: var(--primary-hover);
+}
+
+
+/* ================= ALARM ================= */
+
+
+.alarm-list {
+    margin-top: 20px;
+}
+
+
+.empty-message {
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+
+.alarm-item {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 12px;
+
+    margin-bottom: 8px;
+
+    background: #0f172a;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+}
+
+
+.alarm-time {
+    font-size: 20px;
+
+    font-weight: 600;
+}
+
+
+.delete-alarm {
+    background: transparent;
+
+    color: var(--danger);
+
+    font-size: 13px;
+}
+
+
+/* ================= DISPLAY ================= */
+
+
+.big-display {
     text-align: center;
 
-    font-size: 45px;
+    font-size: 38px;
 
-    font-weight: bold;
+    font-weight: 600;
 
-    margin: 20px 0;
+    letter-spacing: 2px;
+
+    margin: 30px 0;
 }
 
 
-/* Timer */
+/* ================= BUTTONS ================= */
 
-#timerDisplay {
-    text-align: center;
 
-    font-size: 50px;
+.button-row {
+    display: flex;
 
-    font-weight: bold;
-
-    margin: 25px 0;
+    gap: 8px;
 }
 
 
-/* Buttons */
+.button-row button {
+    flex: 1;
 
-.buttons {
+    padding: 11px;
+
+    border-radius: 8px;
+
+    background: var(--primary);
+
+    color: white;
+}
+
+
+.button-row button:hover {
+    background: var(--primary-hover);
+}
+
+
+/* ================= LAPS ================= */
+
+
+.laps {
+    margin-top: 20px;
+
+    max-height: 120px;
+
+    overflow-y: auto;
+}
+
+
+.lap-item {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 8px 10px;
+
+    border-bottom: 1px solid var(--border);
+
+    color: var(--muted);
+}
+
+
+/* ================= TIMER ================= */
+
+
+.timer-inputs {
     display: flex;
 
     justify-content: center;
 
-    gap: 10px;
+    align-items: center;
+
+    gap: 8px;
 }
 
 
-/* Light Mode */
+.timer-inputs input {
+    width: 70px;
+
+    text-align: center;
+}
+
+
+.timer-inputs span {
+    color: var(--muted);
+
+    font-size: 22px;
+}
+
+
+.progress-container {
+    height: 7px;
+
+    background: #0f172a;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin-bottom: 20px;
+}
+
+
+#timerProgress {
+    width: 0%;
+
+    height: 100%;
+
+    background: var(--primary);
+
+    transition: width 0.5s linear;
+}
+
+
+/* ================= WORLD CLOCK ================= */
+
+
+.world-city {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.world-city:last-child {
+    border-bottom: none;
+}
+
+
+.world-city div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.world-city strong {
+    font-size: 16px;
+}
+
+
+.world-city span {
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+.world-city b {
+    font-size: 18px;
+}
+
+
+/* ================= SETTINGS ================= */
+
+
+.setting {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 16px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.setting:last-child {
+    border-bottom: none;
+}
+
+
+.setting span {
+    color: var(--muted);
+}
+
+
+.setting input {
+    width: 20px;
+
+    height: 20px;
+
+    cursor: pointer;
+}
+
+
+/* ================= FOOTER ================= */
+
+
+footer {
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    padding: 30px 0 10px;
+}
+
+
+/* ================= LIGHT MODE ================= */
+
 
 body.light {
-    background: #f3f4f6;
+    --background: #f1f5f9;
 
-    color: #111827;
+    --card: #ffffff;
+
+    --card-light: #f8fafc;
+
+    --text: #0f172a;
+
+    --muted: #64748b;
+
+    --border: #dbe3ef;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e0f2fe,
+            #f8fafc
+        );
 }
 
-body.light .clock-section,
-body.light .card {
-    background: white;
-}
 
-body.light #date,
-body.light #alarmStatus {
-    color: #4b5563;
+body.light .card,
+body.light .top-actions button {
+    background: rgba(255, 255, 255, 0.9);
 }
 
 
-/* Mobile */
+body.light .hero-card {
+    background: rgba(255, 255, 255, 0.8);
+}
 
-@media (max-width: 600px) {
+
+body.light input[type="time"],
+body.light input[type="number"],
+body.light .alarm-item {
+    background: #f8fafc;
+
+    color: #0f172a;
+}
+
+
+body.light .progress-container {
+    background: #e2e8f0;
+}
+
+
+/* ================= MOBILE ================= */
+
+
+@media (max-width: 800px) {
 
     body {
         padding: 15px;
     }
 
-    .header {
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .topbar {
+        align-items: flex-start;
+    }
+
+
+    #time {
+        letter-spacing: 2px;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .topbar {
         flex-direction: column;
 
         gap: 15px;
     }
 
-    #time {
-        font-size: 42px;
-    }
 
-    #stopwatchDisplay {
-        font-size: 35px;
-    }
-
-    #timerDisplay {
-        font-size: 40px;
-    }
-
-    .input-group {
-        flex-direction: column;
-    }
-
-    input,
-    button {
+    .top-actions {
         width: 100%;
     }
 
-    .buttons {
+
+    .top-actions button {
+        flex: 1;
+    }
+
+
+    .hero-card {
+        padding: 40px 15px;
+    }
+
+
+    .alarm-form {
         flex-direction: column;
     }
+
+
+    .alarm-form button {
+        padding: 12px;
+    }
+
+
+    .button-row {
+        flex-direction: column;
+    }
+
+
+    .timer-inputs input {
+        width: 60px;
+    }
+
 }
