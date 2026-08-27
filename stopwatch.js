@@ -1,74 +1,143 @@
 const stopwatchDisplay =
-    document.getElementById("stopwatchDisplay");
+    document.getElementById(
+        "stopwatchDisplay"
+    );
 
 const startStopwatch =
-    document.getElementById("startStopwatch");
+    document.getElementById(
+        "startStopwatch"
+    );
 
-const pauseStopwatch =
-    document.getElementById("pauseStopwatch");
+const lapStopwatch =
+    document.getElementById(
+        "lapStopwatch"
+    );
 
 const resetStopwatch =
-    document.getElementById("resetStopwatch");
+    document.getElementById(
+        "resetStopwatch"
+    );
+
+const laps =
+    document.getElementById("laps");
 
 
-let stopwatchSeconds = 0;
+let stopwatchTime = 0;
 
 let stopwatchInterval = null;
+
+let lapNumber = 0;
 
 
 const updateStopwatch = () => {
 
-    const hours =
-        Math.floor(stopwatchSeconds / 3600);
+    const milliseconds =
+        stopwatchTime % 1000;
 
-    const minutes =
-        Math.floor((stopwatchSeconds % 3600) / 60);
+    const totalSeconds =
+        Math.floor(
+            stopwatchTime / 1000
+        );
 
     const seconds =
-        stopwatchSeconds % 60;
+        totalSeconds % 60;
+
+    const minutes =
+        Math.floor(
+            totalSeconds / 60
+        ) % 60;
+
+    const hours =
+        Math.floor(
+            totalSeconds / 3600
+        );
 
 
     stopwatchDisplay.textContent =
         `${String(hours).padStart(2, "0")}:` +
         `${String(minutes).padStart(2, "0")}:` +
-        `${String(seconds).padStart(2, "0")}`;
+        `${String(seconds).padStart(2, "0")}.` +
+        `${String(
+            Math.floor(milliseconds / 10)
+        ).padStart(2, "0")}`;
+
 };
 
 
-startStopwatch.addEventListener("click", () => {
+startStopwatch.addEventListener(
+    "click",
+    () => {
 
-    if (stopwatchInterval !== null) {
-        return;
+        if (stopwatchInterval) {
+            return;
+        }
+
+
+        stopwatchInterval =
+            setInterval(() => {
+
+                stopwatchTime += 10;
+
+                updateStopwatch();
+
+            }, 10);
+
     }
+);
 
-    stopwatchInterval = setInterval(() => {
 
-        stopwatchSeconds++;
+lapStopwatch.addEventListener(
+    "click",
+    () => {
+
+        if (!stopwatchInterval) {
+            return;
+        }
+
+
+        lapNumber++;
+
+
+        const lap =
+            document.createElement("div");
+
+        lap.className = "lap-item";
+
+
+        lap.innerHTML = `
+            <span>Lap ${lapNumber}</span>
+            <span>
+                ${stopwatchDisplay.textContent}
+            </span>
+        `;
+
+
+        laps.prepend(lap);
+
+    }
+);
+
+
+resetStopwatch.addEventListener(
+    "click",
+    () => {
+
+        clearInterval(
+            stopwatchInterval
+        );
+
+        stopwatchInterval = null;
+
+        stopwatchTime = 0;
+
+        lapNumber = 0;
+
+        laps.innerHTML = "";
 
         updateStopwatch();
 
-    }, 1000);
-});
-
-
-pauseStopwatch.addEventListener("click", () => {
-
-    clearInterval(stopwatchInterval);
-
-    stopwatchInterval = null;
-});
-
-
-resetStopwatch.addEventListener("click", () => {
-
-    clearInterval(stopwatchInterval);
-
-    stopwatchInterval = null;
-
-    stopwatchSeconds = 0;
-
-    updateStopwatch();
-});
+    }
+);
 
 
 updateStopwatch();
