@@ -1,23 +1,38 @@
 const cities = {
 
     kathmandu: {
+
         element: "kathmanduTime",
+
         timeZone: "Asia/Kathmandu"
+
     },
+
 
     london: {
+
         element: "londonTime",
+
         timeZone: "Europe/London"
+
     },
+
 
     newYork: {
+
         element: "newYorkTime",
+
         timeZone: "America/New_York"
+
     },
 
+
     tokyo: {
+
         element: "tokyoTime",
+
         timeZone: "Asia/Tokyo"
+
     }
 
 };
@@ -48,11 +63,13 @@ const updateWorldClock = () => {
                         second: "2-digit",
 
                         hour12: true
+
                     }
                 );
 
 
-            element.textContent = time;
+            element.textContent =
+                time;
 
         }
     );
@@ -61,6 +78,7 @@ const updateWorldClock = () => {
 
 
 updateWorldClock();
+
 
 setInterval(
     updateWorldClock,
