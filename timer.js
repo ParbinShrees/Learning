@@ -1,26 +1,42 @@
 const timerHours =
-    document.getElementById("timerHours");
+    document.getElementById(
+        "timerHours"
+    );
 
 const timerMinutes =
-    document.getElementById("timerMinutes");
+    document.getElementById(
+        "timerMinutes"
+    );
 
 const timerSecondsInput =
-    document.getElementById("timerSeconds");
+    document.getElementById(
+        "timerSeconds"
+    );
 
 const timerDisplay =
-    document.getElementById("timerDisplay");
+    document.getElementById(
+        "timerDisplay"
+    );
 
 const startTimer =
-    document.getElementById("startTimer");
+    document.getElementById(
+        "startTimer"
+    );
 
 const pauseTimer =
-    document.getElementById("pauseTimer");
+    document.getElementById(
+        "pauseTimer"
+    );
 
 const resetTimer =
-    document.getElementById("resetTimer");
+    document.getElementById(
+        "resetTimer"
+    );
 
 const timerProgress =
-    document.getElementById("timerProgress");
+    document.getElementById(
+        "timerProgress"
+    );
 
 
 let totalTimerSeconds = 0;
@@ -37,10 +53,13 @@ const updateTimer = () => {
             remainingTimerSeconds / 3600
         );
 
+
     const minutes =
         Math.floor(
-            (remainingTimerSeconds % 3600) / 60
+            (remainingTimerSeconds % 3600) /
+            60
         );
+
 
     const seconds =
         remainingTimerSeconds % 60;
@@ -77,17 +96,25 @@ startTimer.addEventListener(
     () => {
 
         if (timerInterval) {
+
             return;
+
         }
 
 
         if (remainingTimerSeconds === 0) {
 
             const hours =
-                Number(timerHours.value) || 0;
+                Number(
+                    timerHours.value
+                ) || 0;
+
 
             const minutes =
-                Number(timerMinutes.value) || 0;
+                Number(
+                    timerMinutes.value
+                ) || 0;
+
 
             const seconds =
                 Number(
@@ -112,29 +139,38 @@ startTimer.addEventListener(
                 );
 
                 return;
+
             }
 
         }
+
+
+        updateTimer();
 
 
         timerInterval =
             setInterval(() => {
 
                 if (
-                    remainingTimerSeconds <= 0
+                    remainingTimerSeconds <=
+                    0
                 ) {
 
                     clearInterval(
                         timerInterval
                     );
 
+
                     timerInterval = null;
+
 
                     alert(
                         "Timer finished!"
                     );
 
+
                     return;
+
                 }
 
 
@@ -170,11 +206,13 @@ resetTimer.addEventListener(
             timerInterval
         );
 
+
         timerInterval = null;
 
         totalTimerSeconds = 0;
 
         remainingTimerSeconds = 0;
+
 
         timerHours.value = "";
 
@@ -182,7 +220,10 @@ resetTimer.addEventListener(
 
         timerSecondsInput.value = "";
 
-        timerProgress.style.width = "0%";
+
+        timerProgress.style.width =
+            "0%";
+
 
         updateTimer();
 
