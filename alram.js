@@ -17,6 +17,33 @@ let alarms =
     ) || [];
 
 
+const showToast = (message) => {
+
+    const toast =
+        document.getElementById("toast");
+
+    const toastMessage =
+        document.getElementById(
+            "toastMessage"
+        );
+
+
+    toastMessage.textContent =
+        message;
+
+
+    toast.classList.add("show");
+
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 2500);
+
+};
+
+
 const saveAlarms = () => {
 
     localStorage.setItem(
@@ -35,38 +62,47 @@ const renderAlarms = () => {
     if (alarms.length === 0) {
 
         alarmList.innerHTML =
-            `<p class="empty-message">
-                No alarms set
-            </p>`;
+            `
+            <p class="empty-message">
+                No alarms set.
+            </p>
+            `;
 
     }
 
 
-    alarms.forEach((alarm, index) => {
+    alarms.forEach(
+        (alarm, index) => {
 
-        const item =
-            document.createElement("div");
-
-        item.className = "alarm-item";
-
-
-        item.innerHTML = `
-            <span class="alarm-time">
-                ${alarm}
-            </span>
-
-            <button
-                class="delete-alarm"
-                data-index="${index}"
-            >
-                Delete
-            </button>
-        `;
+            const item =
+                document.createElement(
+                    "div"
+                );
 
 
-        alarmList.appendChild(item);
+            item.className =
+                "alarm-item";
 
-    });
+
+            item.innerHTML =
+                `
+                <span class="alarm-time">
+                    ${alarm}
+                </span>
+
+                <button
+                    class="delete-alarm"
+                    data-index="${index}"
+                >
+                    Delete
+                </button>
+                `;
+
+
+            alarmList.appendChild(item);
+
+        }
+    );
 
 
     alarmCount.textContent =
@@ -79,62 +115,88 @@ const renderAlarms = () => {
 };
 
 
-addAlarm.addEventListener("click", () => {
+addAlarm.addEventListener(
+    "click",
+    () => {
 
-    const value = alarmInput.value;
-
-
-    if (!value) {
-
-        alert("Please select an alarm time.");
-
-        return;
-    }
+        const value =
+            alarmInput.value;
 
 
-    if (alarms.includes(value)) {
+        if (!value) {
 
-        alert("This alarm already exists.");
-
-        return;
-    }
-
-
-    alarms.push(value);
-
-    alarms.sort();
-
-    saveAlarms();
-
-    renderAlarms();
-
-    alarmInput.value = "";
-
-});
-
-
-alarmList.addEventListener("click", (event) => {
-
-    if (
-        event.target.classList.contains(
-            "delete-alarm"
-        )
-    ) {
-
-        const index =
-            Number(
-                event.target.dataset.index
+            showToast(
+                "Please select a time."
             );
 
-        alarms.splice(index, 1);
+            return;
+        }
+
+
+        if (alarms.includes(value)) {
+
+            showToast(
+                "This alarm already exists."
+            );
+
+            return;
+        }
+
+
+        alarms.push(value);
+
+        alarms.sort();
 
         saveAlarms();
 
         renderAlarms();
 
-    }
+        alarmInput.value = "";
 
-});
+
+        showToast(
+            `Alarm set for ${value}`
+        );
+
+    }
+);
+
+
+alarmList.addEventListener(
+    "click",
+    (event) => {
+
+        if (
+            event.target.classList.contains(
+                "delete-alarm"
+            )
+        ) {
+
+            const index =
+                Number(
+                    event.target.dataset.index
+                );
+
+
+            const deleted =
+                alarms[index];
+
+
+            alarms.splice(index, 1);
+
+            saveAlarms();
+
+            renderAlarms();
+
+
+            showToast(
+                `Alarm ${deleted} deleted`
+            );
+
+        }
+
+    }
+);
 
 
 setInterval(() => {
@@ -143,20 +205,26 @@ setInterval(() => {
 
 
     const currentTime =
-        `${String(now.getHours()).padStart(2, "0")}:` +
-        `${String(now.getMinutes()).padStart(2, "0")}`;
+        `${String(
+            now.getHours()
+        ).padStart(2, "0")}:` +
+        `${String(
+            now.getMinutes()
+        ).padStart(2, "0")}`;
 
 
-    const currentSecond =
-        now.getSeconds();
+    if (now.getSeconds() !== 0) {
 
-
-    if (currentSecond !== 0) {
         return;
     }
 
 
     if (alarms.includes(currentTime)) {
+
+        showToast(
+            `Alarm: ${currentTime}`
+        );
+
 
         alert(
             `Alarm: ${currentTime}`
