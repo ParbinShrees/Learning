@@ -1,18 +1,713 @@
- 
-PS C:\Users\Predator\Desktop\Office\Learning logs> cd ./my-app/
-PS C:\Users\Predator\Desktop\Office\Learning logs\my-app> 
- *  History restored 
+<!DOCTYPE html>
+<html lang="en">
 
-PS C:\Users\Predator\Desktop\Office\Learning logs> git add . 
-PS C:\Users\Predator\Desktop\Office\Learning logs> git commit -m "updated index.html"
-On branch main
-Your branch is up to date with 'origin/main'.
+<head>
+    <meta charset="UTF-8">
 
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git restore <file>..." to discard changes in working directory)
-  (commit or discard the untracked or modified content in submodules)
-        modified:   my-app (modified content)
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-no changes added to commit (use "git add" and/or "git commit -a")
-PS C:\Users\Predator\Desktop\Office\Learning logs> 
+    <title>Time Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <!-- ================= TOPBAR ================= -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <p class="eyebrow">
+                PERSONAL TIME
+            </p>
+
+            <h1>
+                Time Dashboard
+            </h1>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <button
+                id="formatButton"
+                class="secondary-button"
+            >
+                24H
+            </button>
+
+
+            <button
+                id="themeButton"
+                class="secondary-button"
+            >
+                Light
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN CLOCK ================= -->
+
+    <section class="hero-card">
+
+        <div class="hero-top">
+
+            <span id="dayName">
+                Thursday
+            </span>
+
+
+            <span class="live-status">
+
+                <span class="live-dot"></span>
+
+                LIVE
+
+            </span>
+
+        </div>
+
+
+        <div id="time">
+            00:00:00
+        </div>
+
+
+        <div id="date">
+            Loading date...
+        </div>
+
+
+        <div id="location">
+            Kathmandu, Nepal
+        </div>
+
+    </section>
+
+
+    <!-- ================= STREAK ================= -->
+
+    <section class="streak-card">
+
+        <div class="streak-heading">
+
+            <div>
+
+                <p class="eyebrow">
+                    DAILY PROGRESS
+                </p>
+
+                <h2>
+                    Your Streak
+                </h2>
+
+            </div>
+
+
+            <button
+                id="checkInButton"
+                class="primary-button"
+            >
+                Check In
+            </button>
+
+        </div>
+
+
+        <div class="streak-grid">
+
+            <div class="streak-stat">
+
+                <span class="stat-number" id="currentStreak">
+                    0
+                </span>
+
+                <span class="stat-label">
+                    Current Streak
+                </span>
+
+            </div>
+
+
+            <div class="streak-stat">
+
+                <span class="stat-number" id="bestStreak">
+                    0
+                </span>
+
+                <span class="stat-label">
+                    Best Streak
+                </span>
+
+            </div>
+
+
+            <div class="streak-stat">
+
+                <span
+                    class="stat-number"
+                    id="totalCheckIns"
+                >
+                    0
+                </span>
+
+                <span class="stat-label">
+                    Total Check-ins
+                </span>
+
+            </div>
+
+
+            <div class="streak-stat">
+
+                <span
+                    class="stat-number"
+                    id="streakStatus"
+                >
+                    —
+                </span>
+
+                <span class="stat-label">
+                    Today
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="streak-bar-container">
+
+            <div
+                id="streakBar"
+                class="streak-bar"
+            ></div>
+
+        </div>
+
+
+        <div class="streak-message">
+
+            <span id="streakMessage">
+                Check in today to start your streak.
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <section class="dashboard-grid">
+
+
+        <!-- ================= ALARM ================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        ALARM
+                    </p>
+
+                    <h2>
+                        Alarms
+                    </h2>
+
+                </div>
+
+
+                <span id="alarmCount">
+                    0 alarms
+                </span>
+
+            </div>
+
+
+            <div class="alarm-form">
+
+                <input
+                    type="time"
+                    id="alarmInput"
+                >
+
+
+                <button
+                    id="addAlarm"
+                    class="primary-button"
+                >
+                    Add
+                </button>
+
+            </div>
+
+
+            <div
+                id="alarmList"
+                class="alarm-list"
+            >
+
+                <p class="empty-message">
+                    No alarms set.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= STOPWATCH ================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        STOPWATCH
+                    </p>
+
+                    <h2>
+                        Stopwatch
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="stopwatchDisplay"
+                class="big-display"
+            >
+                00:00:00.00
+            </div>
+
+
+            <div class="button-row">
+
+                <button
+                    id="startStopwatch"
+                    class="primary-button"
+                >
+                    Start
+                </button>
+
+
+                <button
+                    id="lapStopwatch"
+                    class="secondary-button"
+                >
+                    Lap
+                </button>
+
+
+                <button
+                    id="resetStopwatch"
+                    class="secondary-button"
+                >
+                    Reset
+                </button>
+
+            </div>
+
+
+            <div
+                id="laps"
+                class="laps"
+            ></div>
+
+        </div>
+
+
+        <!-- ================= TIMER ================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        COUNTDOWN
+                    </p>
+
+                    <h2>
+                        Timer
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="timer-inputs">
+
+                <input
+                    type="number"
+                    id="timerHours"
+                    placeholder="HH"
+                    min="0"
+                >
+
+
+                <span>:</span>
+
+
+                <input
+                    type="number"
+                    id="timerMinutes"
+                    placeholder="MM"
+                    min="0"
+                    max="59"
+                >
+
+
+                <span>:</span>
+
+
+                <input
+                    type="number"
+                    id="timerSeconds"
+                    placeholder="SS"
+                    min="0"
+                    max="59"
+                >
+
+            </div>
+
+
+            <div
+                id="timerDisplay"
+                class="big-display"
+            >
+                00:00:00
+            </div>
+
+
+            <div class="progress-container">
+
+                <div
+                    id="timerProgress"
+                    class="timer-progress"
+                ></div>
+
+            </div>
+
+
+            <div class="button-row">
+
+                <button
+                    id="startTimer"
+                    class="primary-button"
+                >
+                    Start
+                </button>
+
+
+                <button
+                    id="pauseTimer"
+                    class="secondary-button"
+                >
+                    Pause
+                </button>
+
+
+                <button
+                    id="resetTimer"
+                    class="secondary-button"
+                >
+                    Reset
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= WORLD CLOCK ================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        WORLD CLOCK
+                    </p>
+
+                    <h2>
+                        World Time
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="world-clock-list">
+
+
+                <div class="world-city">
+
+                    <div>
+
+                        <strong>
+                            Kathmandu
+                        </strong>
+
+                        <span>
+                            Nepal
+                        </span>
+
+                    </div>
+
+
+                    <b id="kathmanduTime">
+                        --:--:--
+                    </b>
+
+                </div>
+
+
+                <div class="world-city">
+
+                    <div>
+
+                        <strong>
+                            London
+                        </strong>
+
+                        <span>
+                            United Kingdom
+                        </span>
+
+                    </div>
+
+
+                    <b id="londonTime">
+                        --:--:--
+                    </b>
+
+                </div>
+
+
+                <div class="world-city">
+
+                    <div>
+
+                        <strong>
+                            New York
+                        </strong>
+
+                        <span>
+                            United States
+                        </span>
+
+                    </div>
+
+
+                    <b id="newYorkTime">
+                        --:--:--
+                    </b>
+
+                </div>
+
+
+                <div class="world-city">
+
+                    <div>
+
+                        <strong>
+                            Tokyo
+                        </strong>
+
+                        <span>
+                            Japan
+                        </span>
+
+                    </div>
+
+
+                    <b id="tokyoTime">
+                        --:--:--
+                    </b>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= SETTINGS ================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        SETTINGS
+                    </p>
+
+                    <h2>
+                        Preferences
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <label class="setting">
+
+                <div>
+
+                    <strong>
+                        Show Seconds
+                    </strong>
+
+                    <span>
+                        Display seconds on the main clock
+                    </span>
+
+                </div>
+
+
+                <input
+                    type="checkbox"
+                    id="showSeconds"
+                    checked
+                >
+
+            </label>
+
+
+            <label class="setting">
+
+                <div>
+
+                    <strong>
+                        24-Hour Format
+                    </strong>
+
+                    <span>
+                        Use 24-hour time format
+                    </span>
+
+                </div>
+
+
+                <input
+                    type="checkbox"
+                    id="twentyFourHour"
+                    checked
+                >
+
+            </label>
+
+        </div>
+
+
+        <!-- ================= STREAK HISTORY ================= -->
+
+        <div class="card streak-history-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        HISTORY
+                    </p>
+
+                    <h2>
+                        Streak History
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="streakHistory"
+                class="streak-history"
+            >
+
+                <p class="empty-message">
+                    No check-ins yet.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            Time Dashboard
+        </p>
+
+        <span>
+            Built with HTML, CSS and JavaScript
+        </span>
+
+    </footer>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
+<div
+    id="toast"
+    class="toast"
+>
+    <span id="toastMessage"></span>
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="js/clock.js"></script>
+<script src="js/alarm.js"></script>
+<script src="js/stopwatch.js"></script>
+<script src="js/timer.js"></script>
+<script src="js/worldclock.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/streak.js"></script>
+
+</body>
+
+</html>
