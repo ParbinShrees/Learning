@@ -5,7 +5,9 @@ const themeButton =
 
 
 const savedTheme =
-    localStorage.getItem("theme");
+    localStorage.getItem(
+        "theme"
+    );
 
 
 if (savedTheme === "light") {
@@ -13,6 +15,7 @@ if (savedTheme === "light") {
     document.body.classList.add(
         "light"
     );
+
 
     themeButton.textContent =
         "Dark";
