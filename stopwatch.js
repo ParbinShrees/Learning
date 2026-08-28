@@ -34,18 +34,22 @@ const updateStopwatch = () => {
     const milliseconds =
         stopwatchTime % 1000;
 
+
     const totalSeconds =
         Math.floor(
             stopwatchTime / 1000
         );
 
+
     const seconds =
         totalSeconds % 60;
+
 
     const minutes =
         Math.floor(
             totalSeconds / 60
         ) % 60;
+
 
     const hours =
         Math.floor(
@@ -58,7 +62,9 @@ const updateStopwatch = () => {
         `${String(minutes).padStart(2, "0")}:` +
         `${String(seconds).padStart(2, "0")}.` +
         `${String(
-            Math.floor(milliseconds / 10)
+            Math.floor(
+                milliseconds / 10
+            )
         ).padStart(2, "0")}`;
 
 };
@@ -69,7 +75,9 @@ startStopwatch.addEventListener(
     () => {
 
         if (stopwatchInterval) {
+
             return;
+
         }
 
 
@@ -91,7 +99,9 @@ lapStopwatch.addEventListener(
     () => {
 
         if (!stopwatchInterval) {
+
             return;
+
         }
 
 
@@ -99,17 +109,25 @@ lapStopwatch.addEventListener(
 
 
         const lap =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
-        lap.className = "lap-item";
+
+        lap.className =
+            "lap-item";
 
 
-        lap.innerHTML = `
-            <span>Lap ${lapNumber}</span>
+        lap.innerHTML =
+            `
+            <span>
+                Lap ${lapNumber}
+            </span>
+
             <span>
                 ${stopwatchDisplay.textContent}
             </span>
-        `;
+            `;
 
 
         laps.prepend(lap);
@@ -125,6 +143,7 @@ resetStopwatch.addEventListener(
         clearInterval(
             stopwatchInterval
         );
+
 
         stopwatchInterval = null;
 
