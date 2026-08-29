@@ -5,64 +5,451 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Digital Clock Dashboard</title>
+    <meta
+        name="description"
+        content="Modern digital clock dashboard with stopwatch and countdown timer"
+    >
+
+    <title>TimeHub - Digital Clock Dashboard</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <main class="clock-container">
+    <!-- ============================= -->
+    <!-- HEADER -->
+    <!-- ============================= -->
 
-        <div class="clock-card">
+    <header class="topbar">
 
-            <p class="label">DIGITAL CLOCK</p>
+        <div class="brand">
+            <div class="brand-icon">T</div>
 
-            <p id="greeting" class="greeting">Welcome</p>
+            <div>
+                <h2>TimeHub</h2>
+                <span>Time Dashboard</span>
+            </div>
+        </div>
 
-            <h1 id="time">00:00:00</h1>
+        <div class="top-actions">
 
-            <p id="date" class="date">Loading date...</p>
+            <button
+                id="themeToggle"
+                class="icon-button"
+                title="Toggle theme"
+            >
+                Theme
+            </button>
 
-            <div class="info">
+            <button
+                id="fullscreenButton"
+                class="icon-button"
+                title="Fullscreen"
+            >
+                Fullscreen
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ============================= -->
+    <!-- MAIN -->
+    <!-- ============================= -->
+
+    <main class="dashboard">
+
+
+        <!-- ========================= -->
+        <!-- HERO CLOCK -->
+        <!-- ========================= -->
+
+        <section class="clock-card">
+
+            <div class="clock-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        LIVE TIME
+                    </p>
+
+                    <p
+                        id="greeting"
+                        class="greeting"
+                    >
+                        Welcome
+                    </p>
+
+                </div>
+
+                <div class="live-indicator">
+
+                    <span class="live-dot"></span>
+
+                    LIVE
+
+                </div>
+
+            </div>
+
+
+            <div class="clock-display">
+
+                <h1 id="time">
+                    00:00:00
+                </h1>
+
+                <p id="period">
+                    24 HOUR
+                </p>
+
+            </div>
+
+
+            <div class="date-section">
+
+                <h2 id="date">
+                    Loading date...
+                </h2>
 
                 <p id="timezone">
                     Timezone: Loading...
                 </p>
 
-                <p id="status">
-                    Clock is starting...
-                </p>
+            </div>
+
+
+            <!-- DAY PROGRESS -->
+
+            <div class="day-progress">
+
+                <div class="progress-info">
+
+                    <span>
+                        Day Progress
+                    </span>
+
+                    <span id="dayProgressText">
+                        0%
+                    </span>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        id="dayProgressBar"
+                        class="progress-fill"
+                    ></div>
+
+                </div>
 
             </div>
 
-            <div class="controls">
 
-                <button id="formatToggle">
-                    12 Hour
+            <!-- CONTROLS -->
+
+            <div class="clock-controls">
+
+                <button
+                    id="formatToggle"
+                    class="primary-button"
+                >
+                    Switch to 12 Hour
                 </button>
 
-                <button id="secondsToggle">
+                <button
+                    id="secondsToggle"
+                    class="secondary-button"
+                >
                     Hide Seconds
                 </button>
 
             </div>
 
-            <div class="shortcuts">
+        </section>
 
-                <p>Keyboard Shortcuts</p>
 
-                <span>T</span>
-                Toggle 12/24 hour
+        <!-- ========================= -->
+        <!-- INFORMATION CARDS -->
+        <!-- ========================= -->
 
-                <span>S</span>
-                Toggle seconds
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    DAY
+                </span>
+
+                <strong id="dayName">
+                    --
+                </strong>
+
+                <small>
+                    Current day
+                </small>
 
             </div>
 
-        </div>
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    WEEK
+                </span>
+
+                <strong id="weekNumber">
+                    --
+                </strong>
+
+                <small>
+                    Week number
+                </small>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    DAY OF YEAR
+                </span>
+
+                <strong id="dayOfYear">
+                    --
+                </strong>
+
+                <small>
+                    Days passed
+                </small>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    YEAR
+                </span>
+
+                <strong id="year">
+                    --
+                </strong>
+
+                <small>
+                    Current year
+                </small>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- TOOLS -->
+        <!-- ========================= -->
+
+        <section class="tools-grid">
+
+
+            <!-- STOPWATCH -->
+
+            <article class="tool-card">
+
+                <div class="tool-header">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            TOOL
+                        </p>
+
+                        <h2>
+                            Stopwatch
+                        </h2>
+
+                    </div>
+
+                    <span class="tool-status">
+                        READY
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="stopwatchDisplay"
+                    class="tool-display"
+                >
+                    00:00:00
+                </div>
+
+
+                <div class="tool-buttons">
+
+                    <button
+                        id="stopwatchStart"
+                        class="primary-button"
+                    >
+                        Start
+                    </button>
+
+                    <button
+                        id="stopwatchReset"
+                        class="secondary-button"
+                    >
+                        Reset
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- COUNTDOWN -->
+
+            <article class="tool-card">
+
+                <div class="tool-header">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            TOOL
+                        </p>
+
+                        <h2>
+                            Countdown
+                        </h2>
+
+                    </div>
+
+                    <span class="tool-status">
+                        TIMER
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="countdownDisplay"
+                    class="tool-display"
+                >
+                    05:00
+                </div>
+
+
+                <div class="timer-input">
+
+                    <input
+                        id="countdownMinutes"
+                        type="number"
+                        min="1"
+                        max="999"
+                        value="5"
+                        placeholder="Minutes"
+                    >
+
+                    <span>
+                        minutes
+                    </span>
+
+                </div>
+
+
+                <div class="tool-buttons">
+
+                    <button
+                        id="countdownStart"
+                        class="primary-button"
+                    >
+                        Start
+                    </button>
+
+                    <button
+                        id="countdownReset"
+                        class="secondary-button"
+                    >
+                        Reset
+                    </button>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- KEYBOARD SHORTCUTS -->
+        <!-- ========================= -->
+
+        <section class="shortcuts-card">
+
+            <div>
+
+                <p class="eyebrow">
+                    KEYBOARD
+                </p>
+
+                <h2>
+                    Shortcuts
+                </h2>
+
+            </div>
+
+
+            <div class="shortcut-list">
+
+                <div class="shortcut">
+                    <kbd>T</kbd>
+                    <span>12/24 hour</span>
+                </div>
+
+                <div class="shortcut">
+                    <kbd>S</kbd>
+                    <span>Seconds</span>
+                </div>
+
+                <div class="shortcut">
+                    <kbd>F</kbd>
+                    <span>Fullscreen</span>
+                </div>
+
+                <div class="shortcut">
+                    <kbd>Space</kbd>
+                    <span>Stopwatch</span>
+                </div>
+
+            </div>
+
+        </section>
+
 
     </main>
+
+
+    <!-- ============================= -->
+    <!-- FOOTER -->
+    <!-- ============================= -->
+
+    <footer>
+
+        <p>
+            TimeHub Dashboard
+        </p>
+
+        <span id="status">
+            System ready
+        </span>
+
+    </footer>
+
 
     <script src="clock.js"></script>
 
