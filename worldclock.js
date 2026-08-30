@@ -1,130 +1,71 @@
-// =========================================
-// TIMEHUB THEME
-// =========================================
+const cities = {
+
+    kathmandu: "Asia/Kathmandu",
+
+    london: "Europe/London",
+
+    newYork: "America/New_York",
+
+    tokyo: "Asia/Tokyo",
+
+    dubai: "Asia/Dubai",
+
+    sydney: "Australia/Sydney"
+
+};
 
 
-const themeToggle =
-    document.getElementById(
-        "themeToggle"
-    );
+function updateWorldClock() {
 
-const fullscreenButton =
-    document.getElementById(
-        "fullscreenButton"
-    );
+    const now =
+        new Date();
 
 
-// =========================================
-// LOAD THEME
-// =========================================
+    Object.entries(cities)
+        .forEach(
+            ([city, timezone]) => {
 
-function loadTheme() {
+                const element =
+                    document.getElementById(
+                        city
+                    );
 
-    const savedTheme =
-        localStorage.getItem(
-            "theme"
+
+                if (!element) {
+                    return;
+                }
+
+
+                element.textContent =
+                    new Intl.DateTimeFormat(
+                        "en-US",
+                        {
+                            timeZone:
+                                timezone,
+
+                            hour:
+                                "2-digit",
+
+                            minute:
+                                "2-digit",
+
+                            second:
+                                "2-digit",
+
+                            hour12:
+                                false
+                        }
+                    ).format(now);
+
+            }
         );
-
-
-    if (savedTheme === "light") {
-
-        document.body.classList.add(
-            "light"
-        );
-
-        themeToggle.textContent =
-            "Dark Mode";
-
-    } else {
-
-        themeToggle.textContent =
-            "Light Mode";
-
-    }
 
 }
 
 
-// =========================================
-// CHANGE THEME
-// =========================================
+updateWorldClock();
 
-themeToggle.addEventListener(
-    "click",
-    () => {
-
-        document.body.classList.toggle(
-            "light"
-        );
-
-
-        const isLight =
-            document.body.classList.contains(
-                "light"
-            );
-
-
-        localStorage.setItem(
-            "theme",
-            isLight
-                ? "light"
-                : "dark"
-        );
-
-
-        themeToggle.textContent =
-            isLight
-                ? "Dark Mode"
-                : "Light Mode";
-
-    }
+setInterval(
+    updateWorldClock,
+    1000
 );
-
-
-// =========================================
-// FULLSCREEN
-// =========================================
-
-fullscreenButton.addEventListener(
-    "click",
-    async () => {
-
-        try {
-
-            if (
-                !document.fullscreenElement
-            ) {
-
-                await document.documentElement
-                    .requestFullscreen();
-
-                fullscreenButton.textContent =
-                    "Exit Fullscreen";
-
-            } else {
-
-                await document.exitFullscreen();
-
-                fullscreenButton.textContent =
-                    "Fullscreen";
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "Fullscreen error:",
-                error
-            );
-
-        }
-
-    }
-);
-
-
-// =========================================
-// INITIALIZE
-// =========================================
-
-loadTheme();
