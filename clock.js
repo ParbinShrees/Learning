@@ -1202,3 +1202,108 @@ footer {
     }
 
 }
+
+
+// =========================================
+// TIMEHUB WORLD CLOCK
+// =========================================
+
+
+const cities = {
+
+    kathmandu: {
+        timezone: "Asia/Kathmandu"
+    },
+
+    london: {
+        timezone: "Europe/London"
+    },
+
+    newYork: {
+        timezone: "America/New_York"
+    },
+
+    tokyo: {
+        timezone: "Asia/Tokyo"
+    },
+
+    dubai: {
+        timezone: "Asia/Dubai"
+    },
+
+    sydney: {
+        timezone: "Australia/Sydney"
+    }
+
+};
+
+
+// =========================================
+// UPDATE WORLD CLOCK
+// =========================================
+
+function updateWorldClock() {
+
+    const now =
+        new Date();
+
+
+    Object.entries(cities)
+        .forEach(
+            ([city, data]) => {
+
+                const element =
+                    document.getElementById(
+                        city
+                    );
+
+
+                if (!element) {
+
+                    return;
+
+                }
+
+
+                const time =
+                    new Intl.DateTimeFormat(
+                        "en-US",
+                        {
+                            timeZone:
+                                data.timezone,
+
+                            hour:
+                                "2-digit",
+
+                            minute:
+                                "2-digit",
+
+                            second:
+                                "2-digit",
+
+                            hour12:
+                                false
+                        }
+                    ).format(now);
+
+
+                element.textContent =
+                    time;
+
+            }
+        );
+
+}
+
+
+// =========================================
+// INITIALIZE
+// =========================================
+
+updateWorldClock();
+
+
+setInterval(
+    updateWorldClock,
+    1000
+);
