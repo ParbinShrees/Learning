@@ -1,247 +1,233 @@
-// =========================================
-// TIMEHUB DIGITAL CLOCK DASHBOARD
-// =========================================
+// ==========================================
+// TIMEHUB - DAY UPDATE
+// ==========================================
 
 
-// =========================================
+// ==========================================
 // DOM ELEMENTS
-// =========================================
+// ==========================================
 
 const clock = document.getElementById("time");
+const periodDisplay = document.getElementById("period");
+const dateDisplay = document.getElementById("date");
+const timezoneDisplay = document.getElementById("timezone");
+const greetingDisplay = document.getElementById("greeting");
 
-const periodDisplay =
-    document.getElementById("period");
+const formatToggle = document.getElementById("formatToggle");
+const secondsToggle = document.getElementById("secondsToggle");
+const themeToggle = document.getElementById("themeToggle");
+const fullscreenButton = document.getElementById("fullscreenButton");
 
-const dateDisplay =
-    document.getElementById("date");
+const dayNameDisplay = document.getElementById("dayName");
+const dayNumberText = document.getElementById("dayNumberText");
+const weekNumberDisplay = document.getElementById("weekNumber");
+const monthNameDisplay = document.getElementById("monthName");
+const yearDisplay = document.getElementById("year");
 
-const timezoneDisplay =
-    document.getElementById("timezone");
+const dayProgressBar = document.getElementById("dayProgressBar");
+const dayProgressText = document.getElementById("dayProgressText");
 
-const greetingDisplay =
-    document.getElementById("greeting");
+const weekProgressBar = document.getElementById("weekProgressBar");
+const weekProgressValue = document.getElementById("weekProgressValue");
+const weekProgressText = document.getElementById("weekProgressText");
 
-const dayNameDisplay =
-    document.getElementById("dayName");
+const monthProgressBar = document.getElementById("monthProgressBar");
+const monthProgressValue = document.getElementById("monthProgressValue");
+const monthProgressText = document.getElementById("monthProgressText");
 
-const weekNumberDisplay =
-    document.getElementById("weekNumber");
+const yearProgressBar = document.getElementById("yearProgressBar");
+const yearProgressValue = document.getElementById("yearProgressValue");
+const yearProgressText = document.getElementById("yearProgressText");
 
-const dayOfYearDisplay =
-    document.getElementById("dayOfYear");
+const hoursLeftDisplay = document.getElementById("hoursLeft");
+const minutesLeftDisplay = document.getElementById("minutesLeft");
+const secondsLeftDisplay = document.getElementById("secondsLeft");
 
-const yearDisplay =
-    document.getElementById("year");
+const stopwatchDisplay = document.getElementById("stopwatchDisplay");
+const stopwatchStart = document.getElementById("stopwatchStart");
+const stopwatchReset = document.getElementById("stopwatchReset");
 
-const dayProgressBar =
-    document.getElementById("dayProgressBar");
+const countdownDisplay = document.getElementById("countdownDisplay");
+const countdownMinutes = document.getElementById("countdownMinutes");
+const countdownStart = document.getElementById("countdownStart");
+const countdownReset = document.getElementById("countdownReset");
 
-const dayProgressText =
-    document.getElementById("dayProgressText");
-
-const statusDisplay =
-    document.getElementById("status");
-
-
-// Buttons
-
-const formatToggle =
-    document.getElementById("formatToggle");
-
-const secondsToggle =
-    document.getElementById("secondsToggle");
-
-const themeToggle =
-    document.getElementById("themeToggle");
-
-const fullscreenButton =
-    document.getElementById("fullscreenButton");
+const statusDisplay = document.getElementById("status");
 
 
-// Stopwatch
-
-const stopwatchDisplay =
-    document.getElementById("stopwatchDisplay");
-
-const stopwatchStart =
-    document.getElementById("stopwatchStart");
-
-const stopwatchReset =
-    document.getElementById("stopwatchReset");
-
-
-// Countdown
-
-const countdownDisplay =
-    document.getElementById("countdownDisplay");
-
-const countdownMinutes =
-    document.getElementById("countdownMinutes");
-
-const countdownStart =
-    document.getElementById("countdownStart");
-
-const countdownReset =
-    document.getElementById("countdownReset");
-
-
-// =========================================
+// ==========================================
 // SETTINGS
-// =========================================
+// ==========================================
 
-let is24Hour =
-    localStorage.getItem("clockFormat") !== "12";
-
-let showSeconds =
-    localStorage.getItem("showSeconds") !== "false";
+let is24Hour = true;
+let showSeconds = true;
 
 
-// =========================================
+// ==========================================
+// HELPER
+// ==========================================
+
+function pad(number) {
+    return String(number).padStart(2, "0");
+}
+
+
+// ==========================================
 // TIMEZONE
-// =========================================
+// ==========================================
 
 const timezone =
-    Intl.DateTimeFormat()
-        .resolvedOptions()
-        .timeZone;
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 timezoneDisplay.textContent =
     `Timezone: ${timezone}`;
 
 
-// =========================================
-// FORMAT NUMBER
-// =========================================
-
-function pad(number) {
-
-    return String(number)
-        .padStart(2, "0");
-
-}
-
-
-// =========================================
-// GET WEEK NUMBER
-// =========================================
+// ==========================================
+// WEEK NUMBER
+// ==========================================
 
 function getWeekNumber(date) {
 
     const firstDay =
-        new Date(
-            date.getFullYear(),
-            0,
-            1
-        );
+        new Date(date.getFullYear(), 0, 1);
 
-    const pastDays =
+    const days =
         Math.floor(
-            (
-                date - firstDay
-            ) /
-            (24 * 60 * 60 * 1000)
+            (date - firstDay) / 86400000
         );
 
     return Math.ceil(
-        (pastDays + firstDay.getDay() + 1) / 7
+        (days + firstDay.getDay() + 1) / 7
     );
-
 }
 
 
-// =========================================
-// GET DAY OF YEAR
-// =========================================
+// ==========================================
+// DAYS IN MONTH
+// ==========================================
 
-function getDayOfYear(date) {
-
-    const start =
-        new Date(
-            date.getFullYear(),
-            0,
-            0
-        );
-
-    const difference =
-        date - start;
-
-    const oneDay =
-        1000 *
-        60 *
-        60 *
-        24;
-
-    return Math.floor(
-        difference / oneDay
-    );
-
+function getDaysInMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate();
 }
 
 
-// =========================================
-// GET DAY PROGRESS
-// =========================================
+// ==========================================
+// DAY PROGRESS
+// ==========================================
 
 function getDayProgress(date) {
 
-    const secondsPassed =
+    const passed =
         date.getHours() * 3600 +
         date.getMinutes() * 60 +
         date.getSeconds();
 
-    const totalSeconds =
-        24 * 60 * 60;
-
-    return (
-        secondsPassed /
-        totalSeconds
-    ) * 100;
-
+    return (passed / 86400) * 100;
 }
 
 
-// =========================================
-// UPDATE GREETING
-// =========================================
+// ==========================================
+// WEEK PROGRESS
+// ==========================================
+
+function getWeekProgress(date) {
+
+    const day = date.getDay();
+
+    const mondayDay =
+        day === 0 ? 6 : day - 1;
+
+    const currentDayProgress =
+        getDayProgress(date) / 100;
+
+    return (
+        (mondayDay + currentDayProgress) / 7
+    ) * 100;
+}
+
+
+// ==========================================
+// MONTH PROGRESS
+// ==========================================
+
+function getMonthProgress(date) {
+
+    const daysInMonth =
+        getDaysInMonth(
+            date.getFullYear(),
+            date.getMonth()
+        );
+
+    const currentDay =
+        date.getDate() - 1;
+
+    const currentDayProgress =
+        getDayProgress(date) / 100;
+
+    return (
+        (currentDay + currentDayProgress)
+        / daysInMonth
+    ) * 100;
+}
+
+
+// ==========================================
+// YEAR PROGRESS
+// ==========================================
+
+function getYearProgress(date) {
+
+    const start =
+        new Date(date.getFullYear(), 0, 1);
+
+    const end =
+        new Date(date.getFullYear() + 1, 0, 1);
+
+    return (
+        (date - start) /
+        (end - start)
+    ) * 100;
+}
+
+
+// ==========================================
+// GREETING
+// ==========================================
 
 function updateGreeting(hour) {
 
     if (hour < 5) {
-
         greetingDisplay.textContent =
             "Good night";
-
-    } else if (hour < 12) {
-
-        greetingDisplay.textContent =
-            "Good morning";
-
-    } else if (hour < 18) {
-
-        greetingDisplay.textContent =
-            "Good afternoon";
-
-    } else {
-
-        greetingDisplay.textContent =
-            "Good evening";
-
     }
 
+    else if (hour < 12) {
+        greetingDisplay.textContent =
+            "Good morning";
+    }
+
+    else if (hour < 18) {
+        greetingDisplay.textContent =
+            "Good afternoon";
+    }
+
+    else {
+        greetingDisplay.textContent =
+            "Good evening";
+    }
 }
 
 
-// =========================================
-// UPDATE MAIN CLOCK
-// =========================================
+// ==========================================
+// UPDATE CLOCK
+// ==========================================
 
 function updateClock() {
 
-    const now =
-        new Date();
+    const now = new Date();
 
-    let hours =
-        now.getHours();
+    let hours = now.getHours();
 
     const minutes =
         pad(now.getMinutes());
@@ -250,49 +236,38 @@ function updateClock() {
         pad(now.getSeconds());
 
 
-    // =====================================
-    // FORMAT CLOCK
-    // =====================================
-
-    let period = "";
+    // CLOCK FORMAT
 
     if (is24Hour) {
 
         clock.textContent =
             `${pad(hours)}:${minutes}` +
-            (showSeconds
-                ? `:${seconds}`
-                : "");
+            (showSeconds ? `:${seconds}` : "");
 
         periodDisplay.textContent =
             "24 HOUR";
 
-    } else {
+    }
 
-        period =
-            hours >= 12
-                ? "PM"
-                : "AM";
+    else {
 
-        hours =
-            hours % 12 || 12;
+        const period =
+            hours >= 12 ? "PM" : "AM";
+
+        hours = hours % 12 || 12;
 
         clock.textContent =
             `${pad(hours)}:${minutes}` +
-            (showSeconds
-                ? `:${seconds}`
-                : "");
+            (showSeconds ? `:${seconds}` : "");
 
         periodDisplay.textContent =
             period;
     }
 
 
-    // =====================================
     // DATE
-    // =====================================
 
-    const dateText =
+    dateDisplay.textContent =
         now.toLocaleDateString(
             "en-US",
             {
@@ -303,13 +278,8 @@ function updateClock() {
             }
         );
 
-    dateDisplay.textContent =
-        dateText;
 
-
-    // =====================================
     // DAY
-    // =====================================
 
     dayNameDisplay.textContent =
         now.toLocaleDateString(
@@ -319,79 +289,121 @@ function updateClock() {
             }
         );
 
+    dayNumberText.textContent =
+        `Day ${now.getDate()}`;
 
-    // =====================================
+
     // WEEK
-    // =====================================
 
     weekNumberDisplay.textContent =
-        getWeekNumber(now);
+        `Week ${getWeekNumber(now)}`;
 
 
-    // =====================================
-    // DAY OF YEAR
-    // =====================================
+    // MONTH
 
-    dayOfYearDisplay.textContent =
-        getDayOfYear(now);
+    monthNameDisplay.textContent =
+        now.toLocaleDateString(
+            "en-US",
+            {
+                month: "long"
+            }
+        );
 
 
-    // =====================================
     // YEAR
-    // =====================================
 
     yearDisplay.textContent =
         now.getFullYear();
 
 
-    // =====================================
     // GREETING
-    // =====================================
 
-    updateGreeting(
-        now.getHours()
-    );
+    updateGreeting(now.getHours());
 
 
-    // =====================================
     // DAY PROGRESS
-    // =====================================
 
-    const progress =
+    const dayProgress =
         getDayProgress(now);
 
     dayProgressBar.style.width =
-        `${progress}%`;
+        `${dayProgress}%`;
 
     dayProgressText.textContent =
-        `${progress.toFixed(1)}%`;
+        `${dayProgress.toFixed(1)}%`;
 
 
-    // =====================================
+    // WEEK PROGRESS
+
+    const weekProgress =
+        getWeekProgress(now);
+
+    weekProgressBar.style.width =
+        `${weekProgress}%`;
+
+    weekProgressValue.textContent =
+        `${weekProgress.toFixed(1)}%`;
+
+    weekProgressText.textContent =
+        `${weekProgress.toFixed(1)}% completed`;
+
+
+    // MONTH PROGRESS
+
+    const monthProgress =
+        getMonthProgress(now);
+
+    monthProgressBar.style.width =
+        `${monthProgress}%`;
+
+    monthProgressValue.textContent =
+        `${monthProgress.toFixed(1)}%`;
+
+    monthProgressText.textContent =
+        `${monthProgress.toFixed(1)}% completed`;
+
+
+    // YEAR PROGRESS
+
+    const yearProgress =
+        getYearProgress(now);
+
+    yearProgressBar.style.width =
+        `${yearProgress}%`;
+
+    yearProgressValue.textContent =
+        `${yearProgress.toFixed(1)}%`;
+
+    yearProgressText.textContent =
+        `${yearProgress.toFixed(1)}% completed`;
+
+
+    // TIME LEFT TODAY
+
+    hoursLeftDisplay.textContent =
+        23 - now.getHours();
+
+    minutesLeftDisplay.textContent =
+        59 - now.getMinutes();
+
+    secondsLeftDisplay.textContent =
+        59 - now.getSeconds();
+
+
     // STATUS
-    // =====================================
 
     statusDisplay.textContent =
-        `Last updated ${pad(now.getHours())}:${minutes}:${seconds}`;
-
+        `Updated ${pad(now.getHours())}:${minutes}:${seconds}`;
 }
 
 
-// =========================================
-// 12 / 24 HOUR TOGGLE
-// =========================================
+// ==========================================
+// CLOCK FORMAT
+// ==========================================
 
-function toggleFormat() {
+formatToggle.addEventListener("click", () => {
 
-    is24Hour =
-        !is24Hour;
-
-    localStorage.setItem(
-        "clockFormat",
-        is24Hour
-            ? "24"
-            : "12"
-    );
+    is24Hour = !is24Hour;
 
     formatToggle.textContent =
         is24Hour
@@ -399,23 +411,16 @@ function toggleFormat() {
             : "Switch to 24 Hour";
 
     updateClock();
+});
 
-}
 
+// ==========================================
+// SECONDS
+// ==========================================
 
-// =========================================
-// SECONDS TOGGLE
-// =========================================
+secondsToggle.addEventListener("click", () => {
 
-function toggleSeconds() {
-
-    showSeconds =
-        !showSeconds;
-
-    localStorage.setItem(
-        "showSeconds",
-        showSeconds
-    );
+    showSeconds = !showSeconds;
 
     secondsToggle.textContent =
         showSeconds
@@ -423,365 +428,205 @@ function toggleSeconds() {
             : "Show Seconds";
 
     updateClock();
-
-}
-
-
-formatToggle.addEventListener(
-    "click",
-    toggleFormat
-);
+});
 
 
-secondsToggle.addEventListener(
-    "click",
-    toggleSeconds
-);
-
-
-// =========================================
+// ==========================================
 // THEME
-// =========================================
+// ==========================================
 
-function loadTheme() {
+themeToggle.addEventListener("click", () => {
 
-    const savedTheme =
-        localStorage.getItem(
-            "theme"
-        );
+    document.body.classList.toggle("light");
 
-    if (savedTheme === "light") {
+    themeToggle.textContent =
+        document.body.classList.contains("light")
+            ? "Dark Mode"
+            : "Light Mode";
+});
 
-        document.body.classList.add(
-            "light"
-        );
 
-        themeToggle.textContent =
-            "Dark Mode";
+// ==========================================
+// FULLSCREEN
+// ==========================================
+
+fullscreenButton.addEventListener("click", async () => {
+
+    if (!document.fullscreenElement) {
+
+        await document.documentElement.requestFullscreen();
 
     } else {
 
-        themeToggle.textContent =
-            "Light Mode";
+        await document.exitFullscreen();
 
     }
-
-}
-
-
-themeToggle.addEventListener(
-    "click",
-    () => {
-
-        document.body.classList.toggle(
-            "light"
-        );
-
-        const isLight =
-            document.body.classList.contains(
-                "light"
-            );
-
-        localStorage.setItem(
-            "theme",
-            isLight
-                ? "light"
-                : "dark"
-        );
-
-        themeToggle.textContent =
-            isLight
-                ? "Dark Mode"
-                : "Light Mode";
-
-    }
-);
+});
 
 
-// =========================================
-// FULLSCREEN
-// =========================================
-
-fullscreenButton.addEventListener(
-    "click",
-    async () => {
-
-        try {
-
-            if (!document.fullscreenElement) {
-
-                await document.documentElement
-                    .requestFullscreen();
-
-            } else {
-
-                await document.exitFullscreen();
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "Fullscreen error:",
-                error
-            );
-
-        }
-
-    }
-);
-
-
-// =========================================
+// ==========================================
 // STOPWATCH
-// =========================================
+// ==========================================
 
 let stopwatchSeconds = 0;
-
 let stopwatchInterval = null;
-
 let stopwatchRunning = false;
 
 
-function formatStopwatch(seconds) {
+function updateStopwatch() {
 
     const hours =
-        Math.floor(
-            seconds / 3600
-        );
+        Math.floor(stopwatchSeconds / 3600);
 
     const minutes =
         Math.floor(
-            (seconds % 3600) / 60
+            (stopwatchSeconds % 3600) / 60
         );
 
-    const remainingSeconds =
-        seconds % 60;
-
-    return (
-        `${pad(hours)}:` +
-        `${pad(minutes)}:` +
-        `${pad(remainingSeconds)}`
-    );
-
-}
-
-
-function updateStopwatchDisplay() {
+    const seconds =
+        stopwatchSeconds % 60;
 
     stopwatchDisplay.textContent =
-        formatStopwatch(
-            stopwatchSeconds
-        );
-
+        `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
 }
 
 
-stopwatchStart.addEventListener(
-    "click",
-    () => {
+stopwatchStart.addEventListener("click", () => {
 
-        if (stopwatchRunning) {
+    if (stopwatchRunning) {
 
-            clearInterval(
-                stopwatchInterval
-            );
-
-            stopwatchRunning = false;
-
-            stopwatchStart.textContent =
-                "Start";
-
-        } else {
-
-            stopwatchInterval =
-                setInterval(
-                    () => {
-
-                        stopwatchSeconds++;
-
-                        updateStopwatchDisplay();
-
-                    },
-                    1000
-                );
-
-            stopwatchRunning = true;
-
-            stopwatchStart.textContent =
-                "Pause";
-
-        }
-
-    }
-);
-
-
-stopwatchReset.addEventListener(
-    "click",
-    () => {
-
-        clearInterval(
-            stopwatchInterval
-        );
+        clearInterval(stopwatchInterval);
 
         stopwatchRunning = false;
-
-        stopwatchSeconds = 0;
 
         stopwatchStart.textContent =
             "Start";
 
-        updateStopwatchDisplay();
+    } else {
 
+        stopwatchInterval =
+            setInterval(() => {
+
+                stopwatchSeconds++;
+
+                updateStopwatch();
+
+            }, 1000);
+
+        stopwatchRunning = true;
+
+        stopwatchStart.textContent =
+            "Pause";
     }
-);
+});
 
 
-// =========================================
+stopwatchReset.addEventListener("click", () => {
+
+    clearInterval(stopwatchInterval);
+
+    stopwatchRunning = false;
+
+    stopwatchSeconds = 0;
+
+    stopwatchStart.textContent =
+        "Start";
+
+    updateStopwatch();
+});
+
+
+// ==========================================
 // COUNTDOWN
-// =========================================
+// ==========================================
 
 let countdownSeconds = 300;
-
 let countdownInterval = null;
-
 let countdownRunning = false;
 
 
-function formatCountdown(seconds) {
+function updateCountdown() {
 
     const minutes =
-        Math.floor(
-            seconds / 60
-        );
+        Math.floor(countdownSeconds / 60);
 
-    const remainingSeconds =
-        seconds % 60;
-
-    return (
-        `${pad(minutes)}:` +
-        `${pad(remainingSeconds)}`
-    );
-
-}
-
-
-function updateCountdownDisplay() {
+    const seconds =
+        countdownSeconds % 60;
 
     countdownDisplay.textContent =
-        formatCountdown(
-            countdownSeconds
-        );
-
+        `${pad(minutes)}:${pad(seconds)}`;
 }
 
 
 function resetCountdown() {
 
-    clearInterval(
-        countdownInterval
-    );
+    clearInterval(countdownInterval);
 
     countdownRunning = false;
 
-    const minutes =
-        Number(
-            countdownMinutes.value
-        );
-
-    if (
-        !Number.isFinite(minutes) ||
-        minutes < 1
-    ) {
-
-        countdownSeconds = 300;
-
-    } else {
-
-        countdownSeconds =
-            Math.floor(minutes * 60);
-
-    }
+    countdownSeconds =
+        Number(countdownMinutes.value) * 60;
 
     countdownStart.textContent =
         "Start";
 
-    updateCountdownDisplay();
-
+    updateCountdown();
 }
 
 
-countdownStart.addEventListener(
-    "click",
-    () => {
+countdownStart.addEventListener("click", () => {
 
-        if (countdownRunning) {
+    if (countdownRunning) {
 
-            clearInterval(
-                countdownInterval
-            );
+        clearInterval(countdownInterval);
 
-            countdownRunning = false;
-
-            countdownStart.textContent =
-                "Resume";
-
-            return;
-
-        }
-
-
-        if (countdownSeconds <= 0) {
-
-            resetCountdown();
-
-        }
-
-
-        countdownRunning = true;
+        countdownRunning = false;
 
         countdownStart.textContent =
-            "Pause";
+            "Resume";
 
-
-        countdownInterval =
-            setInterval(
-                () => {
-
-                    countdownSeconds--;
-
-                    updateCountdownDisplay();
-
-
-                    if (
-                        countdownSeconds <= 0
-                    ) {
-
-                        clearInterval(
-                            countdownInterval
-                        );
-
-                        countdownRunning = false;
-
-                        countdownSeconds = 0;
-
-                        countdownStart.textContent =
-                            "Start";
-
-                        statusDisplay.textContent =
-                            "Countdown finished";
-
-                        updateCountdownDisplay();
-
-                    }
-
-                },
-                1000
-            );
-
+        return;
     }
-);
+
+
+    if (countdownSeconds <= 0) {
+        resetCountdown();
+    }
+
+
+    countdownRunning = true;
+
+    countdownStart.textContent =
+        "Pause";
+
+
+    countdownInterval =
+        setInterval(() => {
+
+            countdownSeconds--;
+
+            updateCountdown();
+
+
+            if (countdownSeconds <= 0) {
+
+                clearInterval(countdownInterval);
+
+                countdownRunning = false;
+
+                countdownSeconds = 0;
+
+                countdownStart.textContent =
+                    "Start";
+
+                statusDisplay.textContent =
+                    "Countdown finished";
+
+                updateCountdown();
+            }
+
+        }, 1000);
+});
 
 
 countdownReset.addEventListener(
@@ -796,114 +641,47 @@ countdownMinutes.addEventListener(
 );
 
 
-// =========================================
+// ==========================================
 // KEYBOARD SHORTCUTS
-// =========================================
+// ==========================================
 
-document.addEventListener(
-    "keydown",
-    (event) => {
+document.addEventListener("keydown", (event) => {
 
-        // Don't trigger shortcuts
-        // while typing in an input.
-
-        if (
-            event.target.tagName ===
-            "INPUT"
-        ) {
-
-            return;
-
-        }
-
-
-        // T = Clock format
-
-        if (
-            event.key.toLowerCase()
-            === "t"
-        ) {
-
-            toggleFormat();
-
-        }
-
-
-        // S = Seconds
-
-        if (
-            event.key.toLowerCase()
-            === "s"
-        ) {
-
-            toggleSeconds();
-
-        }
-
-
-        // F = Fullscreen
-
-        if (
-            event.key.toLowerCase()
-            === "f"
-        ) {
-
-            fullscreenButton.click();
-
-        }
-
-
-        // Space = Stopwatch
-
-        if (
-            event.code === "Space"
-        ) {
-
-            event.preventDefault();
-
-            stopwatchStart.click();
-
-        }
-
+    if (event.target.tagName === "INPUT") {
+        return;
     }
-);
 
 
-// =========================================
-// INITIAL SETTINGS
-// =========================================
-
-function initialize() {
-
-    formatToggle.textContent =
-        is24Hour
-            ? "Switch to 12 Hour"
-            : "Switch to 24 Hour";
-
-    secondsToggle.textContent =
-        showSeconds
-            ? "Hide Seconds"
-            : "Show Seconds";
-
-    loadTheme();
-
-    updateClock();
-
-    updateStopwatchDisplay();
-
-    updateCountdownDisplay();
-
-}
+    if (event.key.toLowerCase() === "t") {
+        formatToggle.click();
+    }
 
 
-initialize();
+    if (event.key.toLowerCase() === "s") {
+        secondsToggle.click();
+    }
 
 
-// =========================================
-// CLOCK UPDATE
-// =========================================
+    if (event.key.toLowerCase() === "f") {
+        fullscreenButton.click();
+    }
 
-setInterval(
-    updateClock,
-    1000
-);
+
+    if (event.code === "Space") {
+
+        event.preventDefault();
+
+        stopwatchStart.click();
+    }
+});
+
+
+// ==========================================
+// START
+// ==========================================
+
+updateClock();
+updateStopwatch();
+updateCountdown();
+
+setInterval(updateClock, 1000);
