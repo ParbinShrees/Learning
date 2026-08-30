@@ -1,9 +1,4 @@
 // =========================================
-// TIMEHUB TIMER
-// =========================================
-
-
-// =========================================
 // STOPWATCH
 // =========================================
 
@@ -30,10 +25,6 @@ let stopwatchInterval = null;
 let stopwatchRunning = false;
 
 
-// =========================================
-// STOPWATCH DISPLAY
-// =========================================
-
 function updateStopwatch() {
 
     const hours =
@@ -51,16 +42,12 @@ function updateStopwatch() {
 
 
     stopwatchDisplay.textContent =
-        `${String(hours).padStart(2, "0")}:` +
-        `${String(minutes).padStart(2, "0")}:` +
-        `${String(seconds).padStart(2, "0")}`;
+        `${String(hours).padStart(2,"0")}:` +
+        `${String(minutes).padStart(2,"0")}:` +
+        `${String(seconds).padStart(2,"0")}`;
 
 }
 
-
-// =========================================
-// START / PAUSE
-// =========================================
 
 stopwatchStart.addEventListener(
     "click",
@@ -105,10 +92,6 @@ stopwatchStart.addEventListener(
 );
 
 
-// =========================================
-// RESET
-// =========================================
-
 stopwatchReset.addEventListener(
     "click",
     () => {
@@ -117,8 +100,7 @@ stopwatchReset.addEventListener(
             stopwatchInterval
         );
 
-        stopwatchSeconds =
-            0;
+        stopwatchSeconds = 0;
 
         stopwatchRunning =
             false;
@@ -130,6 +112,9 @@ stopwatchReset.addEventListener(
 
     }
 );
+
+
+updateStopwatch();
 
 
 // =========================================
@@ -158,16 +143,14 @@ const countdownReset =
 
 
 let countdownSeconds =
-    Number(countdownMinutes.value) * 60;
+    Number(
+        countdownMinutes.value
+    ) * 60;
 
 let countdownInterval = null;
 
 let countdownRunning = false;
 
-
-// =========================================
-// DISPLAY
-// =========================================
 
 function updateCountdown() {
 
@@ -181,15 +164,11 @@ function updateCountdown() {
 
 
     countdownDisplay.textContent =
-        `${String(minutes).padStart(2, "0")}:` +
-        `${String(seconds).padStart(2, "0")}`;
+        `${String(minutes).padStart(2,"0")}:` +
+        `${String(seconds).padStart(2,"0")}`;
 
 }
 
-
-// =========================================
-// RESET COUNTDOWN
-// =========================================
 
 function resetCountdown() {
 
@@ -201,7 +180,9 @@ function resetCountdown() {
         false;
 
     countdownSeconds =
-        Number(countdownMinutes.value) * 60;
+        Number(
+            countdownMinutes.value
+        ) * 60;
 
     countdownStart.textContent =
         "Start";
@@ -210,10 +191,6 @@ function resetCountdown() {
 
 }
 
-
-// =========================================
-// START COUNTDOWN
-// =========================================
 
 countdownStart.addEventListener(
     "click",
@@ -275,15 +252,11 @@ countdownStart.addEventListener(
                         countdownStart.textContent =
                             "Start";
 
-                        countdownDisplay.textContent =
-                            "00:00";
+                        updateCountdown();
 
-                        const status =
-                            document.getElementById(
-                                "status"
-                            );
-
-                        status.textContent =
+                        document.getElementById(
+                            "status"
+                        ).textContent =
                             "Countdown finished";
 
                     }
@@ -296,30 +269,16 @@ countdownStart.addEventListener(
 );
 
 
-// =========================================
-// RESET
-// =========================================
-
 countdownReset.addEventListener(
     "click",
     resetCountdown
 );
 
 
-// =========================================
-// INPUT CHANGE
-// =========================================
-
 countdownMinutes.addEventListener(
     "change",
     resetCountdown
 );
 
-
-// =========================================
-// INITIAL
-// =========================================
-
-updateStopwatch();
 
 updateCountdown();
