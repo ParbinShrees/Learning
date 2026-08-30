@@ -1,26 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="Modern digital clock dashboard with stopwatch and countdown timer"
-    >
-
-    <title>TimeHub - Digital Clock Dashboard</title>
+    <title>TimeHub Dashboard</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- ============================= -->
     <!-- HEADER -->
-    <!-- ============================= -->
-
     <header class="topbar">
 
         <div class="brand">
@@ -28,69 +19,36 @@
 
             <div>
                 <h2>TimeHub</h2>
-                <span>Time Dashboard</span>
+                <span>Personal Time Dashboard</span>
             </div>
         </div>
 
         <div class="top-actions">
-
-            <button
-                id="themeToggle"
-                class="icon-button"
-                title="Toggle theme"
-            >
-                Theme
-            </button>
-
-            <button
-                id="fullscreenButton"
-                class="icon-button"
-                title="Fullscreen"
-            >
-                Fullscreen
-            </button>
-
+            <button id="themeToggle">Light Mode</button>
+            <button id="fullscreenButton">Fullscreen</button>
         </div>
 
     </header>
 
 
-    <!-- ============================= -->
-    <!-- MAIN -->
-    <!-- ============================= -->
-
     <main class="dashboard">
 
-
-        <!-- ========================= -->
-        <!-- HERO CLOCK -->
-        <!-- ========================= -->
-
+        <!-- MAIN CLOCK -->
         <section class="clock-card">
 
             <div class="clock-header">
 
                 <div>
+                    <p class="eyebrow">LIVE TIME</p>
 
-                    <p class="eyebrow">
-                        LIVE TIME
-                    </p>
-
-                    <p
-                        id="greeting"
-                        class="greeting"
-                    >
+                    <h2 id="greeting">
                         Welcome
-                    </p>
-
+                    </h2>
                 </div>
 
-                <div class="live-indicator">
-
-                    <span class="live-dot"></span>
-
+                <div class="live-status">
+                    <span></span>
                     LIVE
-
                 </div>
 
             </div>
@@ -112,7 +70,7 @@
             <div class="date-section">
 
                 <h2 id="date">
-                    Loading date...
+                    Loading...
                 </h2>
 
                 <p id="timezone">
@@ -127,30 +85,22 @@
             <div class="day-progress">
 
                 <div class="progress-info">
-
-                    <span>
-                        Day Progress
-                    </span>
+                    <span>Day Progress</span>
 
                     <span id="dayProgressText">
                         0%
                     </span>
-
                 </div>
 
                 <div class="progress-bar">
-
                     <div
                         id="dayProgressBar"
                         class="progress-fill"
                     ></div>
-
                 </div>
 
             </div>
 
-
-            <!-- CONTROLS -->
 
             <div class="clock-controls">
 
@@ -173,12 +123,75 @@
         </section>
 
 
-        <!-- ========================= -->
-        <!-- INFORMATION CARDS -->
-        <!-- ========================= -->
+        <!-- DAY UPDATE / STREAK -->
+
+        <section class="streak-card">
+
+            <div class="streak-header">
+
+                <div>
+                    <p class="eyebrow">
+                        DAILY UPDATE
+                    </p>
+
+                    <h2>
+                        Learning Streak
+                    </h2>
+                </div>
+
+                <div class="streak-number">
+                    <strong id="streakCount">
+                        0
+                    </strong>
+
+                    <span>Days</span>
+                </div>
+
+            </div>
+
+
+            <div class="today-update">
+
+                <div class="update-text">
+
+                    <span class="update-label">
+                        TODAY
+                    </span>
+
+                    <h3 id="todayStatus">
+                        Start your daily update
+                    </h3>
+
+                    <p id="lastUpdate">
+                        No update yet
+                    </p>
+
+                </div>
+
+                <button
+                    id="completeDayButton"
+                    class="primary-button"
+                >
+                    Complete Today
+                </button>
+
+            </div>
+
+
+            <div class="streak-message">
+
+                <p id="streakMessage">
+                    Build your streak one day at a time.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- STATS -->
 
         <section class="stats-grid">
-
 
             <div class="stat-card">
 
@@ -225,7 +238,7 @@
                 </strong>
 
                 <small>
-                    Days passed
+                    Days completed
                 </small>
 
             </div>
@@ -250,9 +263,7 @@
         </section>
 
 
-        <!-- ========================= -->
         <!-- TOOLS -->
-        <!-- ========================= -->
 
         <section class="tools-grid">
 
@@ -264,15 +275,11 @@
                 <div class="tool-header">
 
                     <div>
-
-                        <p class="eyebrow">
-                            TOOL
-                        </p>
+                        <p class="eyebrow">TOOL</p>
 
                         <h2>
                             Stopwatch
                         </h2>
-
                     </div>
 
                     <span class="tool-status">
@@ -318,15 +325,11 @@
                 <div class="tool-header">
 
                     <div>
-
-                        <p class="eyebrow">
-                            TOOL
-                        </p>
+                        <p class="eyebrow">TOOL</p>
 
                         <h2>
                             Countdown
                         </h2>
-
                     </div>
 
                     <span class="tool-status">
@@ -352,7 +355,6 @@
                         min="1"
                         max="999"
                         value="5"
-                        placeholder="Minutes"
                     >
 
                     <span>
@@ -385,9 +387,7 @@
         </section>
 
 
-        <!-- ========================= -->
-        <!-- KEYBOARD SHORTCUTS -->
-        <!-- ========================= -->
+        <!-- SHORTCUTS -->
 
         <section class="shortcuts-card">
 
@@ -408,7 +408,7 @@
 
                 <div class="shortcut">
                     <kbd>T</kbd>
-                    <span>12/24 hour</span>
+                    <span>Time format</span>
                 </div>
 
                 <div class="shortcut">
@@ -430,13 +430,8 @@
 
         </section>
 
-
     </main>
 
-
-    <!-- ============================= -->
-    <!-- FOOTER -->
-    <!-- ============================= -->
 
     <footer>
 
@@ -454,5 +449,4 @@
     <script src="clock.js"></script>
 
 </body>
-
 </html>
