@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TimeHub Dashboard</title>
+    <title>TimeHub | Personal Productivity Dashboard</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -15,29 +15,17 @@
 <header class="topbar">
 
     <div class="brand">
-
-        <div class="brand-icon">
-            T
-        </div>
+        <div class="brand-icon">T</div>
 
         <div>
             <h2>TimeHub</h2>
-            <span>Personal Time Dashboard</span>
+            <span>Personal Productivity Dashboard</span>
         </div>
-
     </div>
 
-
     <div class="top-actions">
-
-        <button id="themeToggle">
-            Light Mode
-        </button>
-
-        <button id="fullscreenButton">
-            Fullscreen
-        </button>
-
+        <button id="themeToggle">Light Mode</button>
+        <button id="fullscreenButton">Fullscreen</button>
     </div>
 
 </header>
@@ -45,81 +33,51 @@
 
 <main class="dashboard">
 
-
-    <!-- =====================================
-         MAIN CLOCK
-    ====================================== -->
+    <!-- CLOCK -->
 
     <section class="clock-card">
 
         <div class="clock-header">
 
             <div>
-
-                <p class="eyebrow">
-                    LIVE TIME
-                </p>
-
-                <h2 id="greeting">
-                    Welcome
-                </h2>
-
+                <p class="eyebrow">LIVE TIME</p>
+                <h2 id="greeting">Welcome</h2>
             </div>
 
-
             <div class="live-status">
-
                 <span></span>
-
                 LIVE
-
             </div>
 
         </div>
-
 
         <div class="clock-display">
 
-            <h1 id="time">
-                00:00:00
-            </h1>
+            <h1 id="time">00:00:00</h1>
 
-            <p id="period">
-                24 HOUR
-            </p>
+            <p id="period">24 HOUR</p>
 
         </div>
-
 
         <div class="date-section">
 
-            <h2 id="date">
-                Loading...
-            </h2>
+            <h2 id="date">Loading...</h2>
 
-            <p id="timezone">
-                Timezone
-            </p>
+            <p id="timezone">Timezone</p>
 
         </div>
-
-
-        <!-- DAY PROGRESS -->
 
         <div class="day-progress">
 
             <div class="progress-info">
 
-                <span>
-                    Day Progress
-                </span>
+                <span>Day Progress</span>
 
                 <span id="dayProgressText">
                     0%
                 </span>
 
             </div>
-
 
             <div class="progress-bar">
 
@@ -132,24 +90,18 @@
 
         </div>
 
-
         <div class="clock-controls">
 
             <button
                 id="formatToggle"
                 class="primary-button">
-
                 Switch to 12 Hour
-
             </button>
-
 
             <button
                 id="secondsToggle"
                 class="secondary-button">
-
                 Hide Seconds
-
             </button>
 
         </div>
@@ -157,404 +109,168 @@
     </section>
 
 
+    <!-- STATS -->
 
-    <!-- =====================================
-         STREAK
-    ====================================== -->
+    <section class="stats-grid">
 
-    <section class="streak-card">
+        <div class="stat-card">
+            <span class="stat-label">DAY</span>
+            <strong id="dayName">--</strong>
+            <small>Current day</small>
+        </div>
 
-        <div class="streak-header">
+        <div class="stat-card">
+            <span class="stat-label">WEEK</span>
+            <strong id="weekNumber">--</strong>
+            <small>Week number</small>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-label">DAY OF YEAR</span>
+            <strong id="dayOfYear">--</strong>
+            <small>Current year</small>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-label">YEAR</span>
+            <strong id="year">--</strong>
+            <small>Current year</small>
+        </div>
+
+    </section>
+
+
+    <!-- STREAK -->
+
+    <section class="section-card">
+
+        <div class="section-title">
 
             <div>
-
-                <p class="eyebrow">
-                    DAILY PROGRESS
-                </p>
-
-                <h2>
-                    Learning Streak
-                </h2>
-
+                <p class="eyebrow">LEARNING</p>
+                <h2>10 Day Streak</h2>
             </div>
 
-
-            <div class="streak-number">
-
-                <strong id="streakCount">
-                    0
-                </strong>
-
-                <span>
-                    Days
-                </span>
-
+            <div class="big-number">
+                <strong id="streakCount">0</strong>
+                <span>Days</span>
             </div>
 
         </div>
 
 
-        <div class="today-update">
+        <div class="today-box">
 
-            <div class="update-text">
+            <div>
 
                 <span class="update-label">
                     TODAY
                 </span>
 
                 <h3 id="todayStatus">
-                    Start today's update
+                    Complete today's learning
                 </h3>
 
                 <p id="lastUpdate">
-                    Complete your daily learning session.
+                    Keep building your streak.
                 </p>
 
             </div>
 
-
             <button
                 id="completeDayButton"
                 class="primary-button">
-
                 Complete Today
-
             </button>
 
         </div>
 
 
         <div class="streak-message">
-
             <p id="streakMessage">
-                Build your streak one day at a time.
+                Start your learning streak today.
             </p>
+        </div>
+
+
+        <div class="streak-title">
+
+            <span>10 Day Goal</span>
+
+            <span id="streakGoalText">
+                0 / 10
+            </span>
 
         </div>
 
 
-        <!-- 10 DAY STREAK -->
+        <div class="streak-grid">
 
-        <div class="streak-days">
-
-            <div class="streak-title">
-
-                <span>
-                    10 Day Goal
-                </span>
-
-                <span id="streakGoalText">
-                    0 / 10
-                </span>
-
-            </div>
-
-
-            <div class="streak-grid">
-
-                <div class="streak-day" data-day="1">
-                    1
-                </div>
-
-                <div class="streak-day" data-day="2">
-                    2
-                </div>
-
-                <div class="streak-day" data-day="3">
-                    3
-                </div>
-
-                <div class="streak-day" data-day="4">
-                    4
-                </div>
-
-                <div class="streak-day" data-day="5">
-                    5
-                </div>
-
-                <div class="streak-day" data-day="6">
-                    6
-                </div>
-
-                <div class="streak-day" data-day="7">
-                    7
-                </div>
-
-                <div class="streak-day" data-day="8">
-                    8
-                </div>
-
-                <div class="streak-day" data-day="9">
-                    9
-                </div>
-
-                <div class="streak-day" data-day="10">
-                    10
-                </div>
-
-            </div>
+            <div class="streak-day" data-day="1">1</div>
+            <div class="streak-day" data-day="2">2</div>
+            <div class="streak-day" data-day="3">3</div>
+            <div class="streak-day" data-day="4">4</div>
+            <div class="streak-day" data-day="5">5</div>
+            <div class="streak-day" data-day="6">6</div>
+            <div class="streak-day" data-day="7">7</div>
+            <div class="streak-day" data-day="8">8</div>
+            <div class="streak-day" data-day="9">9</div>
+            <div class="streak-day" data-day="10">10</div>
 
         </div>
 
     </section>
 
 
+    <!-- WORLD CLOCK -->
 
-    <!-- =====================================
-         STATS
-    ====================================== -->
-
-    <section class="stats-grid">
-
-        <div class="stat-card">
-
-            <span class="stat-label">
-                DAY
-            </span>
-
-            <strong id="dayName">
-                --
-            </strong>
-
-            <small>
-                Current day
-            </small>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <span class="stat-label">
-                WEEK
-            </span>
-
-            <strong id="weekNumber">
-                --
-            </strong>
-
-            <small>
-                Week number
-            </small>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <span class="stat-label">
-                DAY OF YEAR
-            </span>
-
-            <strong id="dayOfYear">
-                --
-            </strong>
-
-            <small>
-                Current year
-            </small>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <span class="stat-label">
-                YEAR
-            </span>
-
-            <strong id="year">
-                --
-            </strong>
-
-            <small>
-                Current year
-            </small>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================
-         WORLD CLOCK
-    ====================================== -->
-
-    <section class="world-section">
+    <section class="section-card">
 
         <div class="section-heading">
 
-            <div>
+            <p class="eyebrow">GLOBAL TIME</p>
 
-                <p class="eyebrow">
-                    GLOBAL TIME
-                </p>
-
-                <h2>
-                    World Clock
-                </h2>
-
-            </div>
+            <h2>World Clock</h2>
 
         </div>
 
 
         <div class="world-grid">
 
-
             <div class="world-card">
-
-                <div class="world-info">
-
-                    <span class="country">
-                        Nepal
-                    </span>
-
-                    <strong>
-                        Kathmandu
-                    </strong>
-
-                </div>
-
-                <div
-                    id="kathmandu"
-                    class="world-time">
-
-                    --:--:--
-
-                </div>
-
+                <span>Nepal</span>
+                <strong>Kathmandu</strong>
+                <time id="kathmandu">--:--:--</time>
             </div>
 
-
-
             <div class="world-card">
-
-                <div class="world-info">
-
-                    <span class="country">
-                        United Kingdom
-                    </span>
-
-                    <strong>
-                        London
-                    </strong>
-
-                </div>
-
-                <div
-                    id="london"
-                    class="world-time">
-
-                    --:--:--
-
-                </div>
-
+                <span>United Kingdom</span>
+                <strong>London</strong>
+                <time id="london">--:--:--</time>
             </div>
 
-
-
             <div class="world-card">
-
-                <div class="world-info">
-
-                    <span class="country">
-                        United States
-                    </span>
-
-                    <strong>
-                        New York
-                    </strong>
-
-                </div>
-
-                <div
-                    id="newYork"
-                    class="world-time">
-
-                    --:--:--
-
-                </div>
-
+                <span>United States</span>
+                <strong>New York</strong>
+                <time id="newYork">--:--:--</time>
             </div>
 
-
-
             <div class="world-card">
-
-                <div class="world-info">
-
-                    <span class="country">
-                        Japan
-                    </span>
-
-                    <strong>
-                        Tokyo
-                    </strong>
-
-                </div>
-
-                <div
-                    id="tokyo"
-                    class="world-time">
-
-                    --:--:--
-
-                </div>
-
+                <span>Japan</span>
+                <strong>Tokyo</strong>
+                <time id="tokyo">--:--:--</time>
             </div>
 
-
-
             <div class="world-card">
-
-                <div class="world-info">
-
-                    <span class="country">
-                        United Arab Emirates
-                    </span>
-
-                    <strong>
-                        Dubai
-                    </strong>
-
-                </div>
-
-                <div
-                    id="dubai"
-                    class="world-time">
-
-                    --:--:--
-
-                </div>
-
+                <span>UAE</span>
+                <strong>Dubai</strong>
+                <time id="dubai">--:--:--</time>
             </div>
 
-
-
             <div class="world-card">
-
-                <div class="world-info">
-
-                    <span class="country">
-                        Australia
-                    </span>
-
-                    <strong>
-                        Sydney
-                    </strong>
-
-                </div>
-
-                <div
-                    id="sydney"
-                    class="world-time">
-
-                    --:--:--
-
-                </div>
-
+                <span>Australia</span>
+                <strong>Sydney</strong>
+                <time id="sydney">--:--:--</time>
             </div>
 
         </div>
@@ -562,13 +278,9 @@
     </section>
 
 
-
-    <!-- =====================================
-         TOOLS
-    ====================================== -->
+    <!-- TIMERS -->
 
     <section class="tools-grid">
-
 
         <!-- STOPWATCH -->
 
@@ -577,15 +289,8 @@
             <div class="tool-header">
 
                 <div>
-
-                    <p class="eyebrow">
-                        TOOL
-                    </p>
-
-                    <h2>
-                        Stopwatch
-                    </h2>
-
+                    <p class="eyebrow">TIME TOOL</p>
+                    <h2>Stopwatch</h2>
                 </div>
 
                 <span class="tool-status">
@@ -594,39 +299,29 @@
 
             </div>
 
-
             <div
                 id="stopwatchDisplay"
                 class="tool-display">
-
                 00:00:00
-
             </div>
-
 
             <div class="tool-buttons">
 
                 <button
                     id="stopwatchStart"
                     class="primary-button">
-
                     Start
-
                 </button>
-
 
                 <button
                     id="stopwatchReset"
                     class="secondary-button">
-
                     Reset
-
                 </button>
 
             </div>
 
         </article>
-
 
 
         <!-- COUNTDOWN -->
@@ -636,15 +331,8 @@
             <div class="tool-header">
 
                 <div>
-
-                    <p class="eyebrow">
-                        TOOL
-                    </p>
-
-                    <h2>
-                        Countdown
-                    </h2>
-
+                    <p class="eyebrow">TIME TOOL</p>
+                    <h2>Countdown</h2>
                 </div>
 
                 <span class="tool-status">
@@ -653,15 +341,11 @@
 
             </div>
 
-
             <div
                 id="countdownDisplay"
                 class="tool-display">
-
                 05:00
-
             </div>
-
 
             <div class="timer-input">
 
@@ -672,30 +356,22 @@
                     max="999"
                     value="5">
 
-                <span>
-                    minutes
-                </span>
+                <span>minutes</span>
 
             </div>
-
 
             <div class="tool-buttons">
 
                 <button
                     id="countdownStart"
                     class="primary-button">
-
                     Start
-
                 </button>
-
 
                 <button
                     id="countdownReset"
                     class="secondary-button">
-
                     Reset
-
                 </button>
 
             </div>
@@ -705,10 +381,326 @@
     </section>
 
 
+    <!-- PRODUCTIVITY -->
 
-    <!-- =====================================
-         SHORTCUTS
-    ====================================== -->
+    <section class="tools-grid">
+
+        <!-- POMODORO -->
+
+        <article class="tool-card">
+
+            <div class="tool-header">
+
+                <div>
+                    <p class="eyebrow">FOCUS</p>
+                    <h2>Pomodoro</h2>
+                </div>
+
+                <span
+                    id="pomodoroMode"
+                    class="tool-status">
+                    FOCUS
+                </span>
+
+            </div>
+
+
+            <div
+                id="pomodoroDisplay"
+                class="tool-display">
+                25:00
+            </div>
+
+
+            <div class="pomodoro-settings">
+
+                <button
+                    id="focusMode"
+                    class="small-button">
+                    Focus 25m
+                </button>
+
+                <button
+                    id="breakMode"
+                    class="small-button">
+                    Break 5m
+                </button>
+
+            </div>
+
+
+            <div class="tool-buttons">
+
+                <button
+                    id="pomodoroStart"
+                    class="primary-button">
+                    Start
+                </button>
+
+                <button
+                    id="pomodoroReset"
+                    class="secondary-button">
+                    Reset
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- LEARNING -->
+
+        <article class="tool-card">
+
+            <div class="tool-header">
+
+                <div>
+                    <p class="eyebrow">PROGRESS</p>
+                    <h2>Learning Goal</h2>
+                </div>
+
+                <span class="tool-status">
+                    TODAY
+                </span>
+
+            </div>
+
+
+            <div class="learning-number">
+
+                <strong id="learningMinutes">
+                    0
+                </strong>
+
+                <span>/ 120 minutes</span>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    id="learningProgress"
+                    class="progress-fill">
+                </div>
+
+            </div>
+
+
+            <div class="tool-buttons">
+
+                <button
+                    id="addLearning30"
+                    class="primary-button">
+                    +30 Minutes
+                </button>
+
+                <button
+                    id="resetLearning"
+                    class="secondary-button">
+                    Reset
+                </button>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <!-- TASKS -->
+
+    <section class="section-card">
+
+        <div class="section-title">
+
+            <div>
+                <p class="eyebrow">PRODUCTIVITY</p>
+                <h2>Tasks</h2>
+            </div>
+
+            <span id="taskCount">
+                0 tasks
+            </span>
+
+        </div>
+
+
+        <form id="taskForm" class="task-form">
+
+            <input
+                id="taskInput"
+                type="text"
+                placeholder="What do you need to do?"
+                autocomplete="off">
+
+            <button
+                class="primary-button"
+                type="submit">
+                Add Task
+            </button>
+
+        </form>
+
+
+        <div class="task-filters">
+
+            <button data-filter="all">
+                All
+            </button>
+
+            <button data-filter="active">
+                Active
+            </button>
+
+            <button data-filter="completed">
+                Completed
+            </button>
+
+            <button id="clearCompleted">
+                Clear Completed
+            </button>
+
+        </div>
+
+
+        <div id="taskList" class="task-list"></div>
+
+    </section>
+
+
+    <!-- NOTES -->
+
+    <section class="section-card">
+
+        <div class="section-heading">
+
+            <p class="eyebrow">PERSONAL</p>
+
+            <h2>Quick Notes</h2>
+
+        </div>
+
+
+        <textarea
+            id="notes"
+            class="notes"
+            placeholder="Write your notes here..."></textarea>
+
+
+        <div class="notes-footer">
+
+            <span id="notesStatus">
+                Saved locally
+            </span>
+
+            <button
+                id="clearNotes"
+                class="secondary-button">
+                Clear Notes
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ALARM -->
+
+    <section class="section-card">
+
+        <div class="section-heading">
+
+            <p class="eyebrow">REMINDER</p>
+
+            <h2>Alarm</h2>
+
+        </div>
+
+
+        <div class="alarm-controls">
+
+            <input
+                id="alarmTime"
+                type="time">
+
+            <button
+                id="setAlarm"
+                class="primary-button">
+                Set Alarm
+            </button>
+
+            <button
+                id="cancelAlarm"
+                class="secondary-button">
+                Cancel
+            </button>
+
+        </div>
+
+
+        <p id="alarmStatus">
+            No alarm set.
+        </p>
+
+    </section>
+
+
+    <!-- QUOTE -->
+
+    <section class="quote-card">
+
+        <p class="eyebrow">
+            DAILY MOTIVATION
+        </p>
+
+        <blockquote id="quote">
+            "Small progress every day becomes big progress."
+        </blockquote>
+
+        <button
+            id="newQuote"
+            class="secondary-button">
+            New Quote
+        </button>
+
+    </section>
+
+
+    <!-- DATA -->
+
+    <section class="section-card">
+
+        <div class="section-title">
+
+            <div>
+                <p class="eyebrow">YOUR DATA</p>
+                <h2>Dashboard Data</h2>
+            </div>
+
+        </div>
+
+
+        <div class="data-buttons">
+
+            <button
+                id="exportData"
+                class="primary-button">
+                Export Data
+            </button>
+
+            <button
+                id="resetDashboard"
+                class="danger-button">
+                Reset Dashboard
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- SHORTCUTS -->
 
     <section class="shortcuts-card">
 
@@ -729,7 +721,7 @@
 
             <div class="shortcut">
                 <kbd>T</kbd>
-                <span>Time format</span>
+                <span>Toggle time</span>
             </div>
 
             <div class="shortcut">
@@ -754,7 +746,6 @@
 </main>
 
 
-
 <footer>
 
     <p>
@@ -768,14 +759,17 @@
 </footer>
 
 
-
-<!-- JAVASCRIPT FILES -->
-
-<script src="clock.js"></script>
-<script src="timer.js"></script>
-<script src="theme.js"></script>
-<script src="worldclock.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/clock.js"></script>
+<script src="js/timer.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/worldclock.js"></script>
+<script src="js/streak.js"></script>
+<script src="js/tasks.js"></script>
+<script src="js/pomodoro.js"></script>
+<script src="js/notes.js"></script>
+<script src="js/alarm.js"></script>
+<script src="js/quotes.js"></script>
 
 </body>
-
 </html>
