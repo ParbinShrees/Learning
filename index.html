@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,442 +12,770 @@
 
 <body>
 
-    <!-- HEADER -->
-    <header class="topbar">
+<header class="topbar">
 
-        <div class="brand">
-            <div class="brand-icon">T</div>
+    <div class="brand">
 
-            <div>
-                <h2>TimeHub</h2>
-                <span>Personal Time Dashboard</span>
-            </div>
+        <div class="brand-icon">
+            T
         </div>
 
-        <div class="top-actions">
-            <button id="themeToggle">Light Mode</button>
-            <button id="fullscreenButton">Fullscreen</button>
+        <div>
+            <h2>TimeHub</h2>
+            <span>Personal Time Dashboard</span>
         </div>
 
-    </header>
+    </div>
 
 
-    <main class="dashboard">
+    <div class="top-actions">
 
-        <!-- MAIN CLOCK -->
-        <section class="clock-card">
+        <button id="themeToggle">
+            Light Mode
+        </button>
 
-            <div class="clock-header">
+        <button id="fullscreenButton">
+            Fullscreen
+        </button>
 
-                <div>
-                    <p class="eyebrow">LIVE TIME</p>
+    </div>
 
-                    <h2 id="greeting">
-                        Welcome
-                    </h2>
-                </div>
+</header>
 
-                <div class="live-status">
-                    <span></span>
-                    LIVE
-                </div>
 
-            </div>
+<main class="dashboard">
 
 
-            <div class="clock-display">
+    <!-- =====================================
+         MAIN CLOCK
+    ====================================== -->
 
-                <h1 id="time">
-                    00:00:00
-                </h1>
+    <section class="clock-card">
 
-                <p id="period">
-                    24 HOUR
-                </p>
-
-            </div>
-
-
-            <div class="date-section">
-
-                <h2 id="date">
-                    Loading...
-                </h2>
-
-                <p id="timezone">
-                    Timezone: Loading...
-                </p>
-
-            </div>
-
-
-            <!-- DAY PROGRESS -->
-
-            <div class="day-progress">
-
-                <div class="progress-info">
-                    <span>Day Progress</span>
-
-                    <span id="dayProgressText">
-                        0%
-                    </span>
-                </div>
-
-                <div class="progress-bar">
-                    <div
-                        id="dayProgressBar"
-                        class="progress-fill"
-                    ></div>
-                </div>
-
-            </div>
-
-
-            <div class="clock-controls">
-
-                <button
-                    id="formatToggle"
-                    class="primary-button"
-                >
-                    Switch to 12 Hour
-                </button>
-
-                <button
-                    id="secondsToggle"
-                    class="secondary-button"
-                >
-                    Hide Seconds
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- DAY UPDATE / STREAK -->
-
-        <section class="streak-card">
-
-            <div class="streak-header">
-
-                <div>
-                    <p class="eyebrow">
-                        DAILY UPDATE
-                    </p>
-
-                    <h2>
-                        Learning Streak
-                    </h2>
-                </div>
-
-                <div class="streak-number">
-                    <strong id="streakCount">
-                        0
-                    </strong>
-
-                    <span>Days</span>
-                </div>
-
-            </div>
-
-
-            <div class="today-update">
-
-                <div class="update-text">
-
-                    <span class="update-label">
-                        TODAY
-                    </span>
-
-                    <h3 id="todayStatus">
-                        Start your daily update
-                    </h3>
-
-                    <p id="lastUpdate">
-                        No update yet
-                    </p>
-
-                </div>
-
-                <button
-                    id="completeDayButton"
-                    class="primary-button"
-                >
-                    Complete Today
-                </button>
-
-            </div>
-
-
-            <div class="streak-message">
-
-                <p id="streakMessage">
-                    Build your streak one day at a time.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- STATS -->
-
-        <section class="stats-grid">
-
-            <div class="stat-card">
-
-                <span class="stat-label">
-                    DAY
-                </span>
-
-                <strong id="dayName">
-                    --
-                </strong>
-
-                <small>
-                    Current day
-                </small>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <span class="stat-label">
-                    WEEK
-                </span>
-
-                <strong id="weekNumber">
-                    --
-                </strong>
-
-                <small>
-                    Week number
-                </small>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <span class="stat-label">
-                    DAY OF YEAR
-                </span>
-
-                <strong id="dayOfYear">
-                    --
-                </strong>
-
-                <small>
-                    Days completed
-                </small>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <span class="stat-label">
-                    YEAR
-                </span>
-
-                <strong id="year">
-                    --
-                </strong>
-
-                <small>
-                    Current year
-                </small>
-
-            </div>
-
-        </section>
-
-
-        <!-- TOOLS -->
-
-        <section class="tools-grid">
-
-
-            <!-- STOPWATCH -->
-
-            <article class="tool-card">
-
-                <div class="tool-header">
-
-                    <div>
-                        <p class="eyebrow">TOOL</p>
-
-                        <h2>
-                            Stopwatch
-                        </h2>
-                    </div>
-
-                    <span class="tool-status">
-                        READY
-                    </span>
-
-                </div>
-
-
-                <div
-                    id="stopwatchDisplay"
-                    class="tool-display"
-                >
-                    00:00:00
-                </div>
-
-
-                <div class="tool-buttons">
-
-                    <button
-                        id="stopwatchStart"
-                        class="primary-button"
-                    >
-                        Start
-                    </button>
-
-                    <button
-                        id="stopwatchReset"
-                        class="secondary-button"
-                    >
-                        Reset
-                    </button>
-
-                </div>
-
-            </article>
-
-
-            <!-- COUNTDOWN -->
-
-            <article class="tool-card">
-
-                <div class="tool-header">
-
-                    <div>
-                        <p class="eyebrow">TOOL</p>
-
-                        <h2>
-                            Countdown
-                        </h2>
-                    </div>
-
-                    <span class="tool-status">
-                        TIMER
-                    </span>
-
-                </div>
-
-
-                <div
-                    id="countdownDisplay"
-                    class="tool-display"
-                >
-                    05:00
-                </div>
-
-
-                <div class="timer-input">
-
-                    <input
-                        id="countdownMinutes"
-                        type="number"
-                        min="1"
-                        max="999"
-                        value="5"
-                    >
-
-                    <span>
-                        minutes
-                    </span>
-
-                </div>
-
-
-                <div class="tool-buttons">
-
-                    <button
-                        id="countdownStart"
-                        class="primary-button"
-                    >
-                        Start
-                    </button>
-
-                    <button
-                        id="countdownReset"
-                        class="secondary-button"
-                    >
-                        Reset
-                    </button>
-
-                </div>
-
-            </article>
-
-        </section>
-
-
-        <!-- SHORTCUTS -->
-
-        <section class="shortcuts-card">
+        <div class="clock-header">
 
             <div>
 
                 <p class="eyebrow">
-                    KEYBOARD
+                    LIVE TIME
                 </p>
 
-                <h2>
-                    Shortcuts
+                <h2 id="greeting">
+                    Welcome
                 </h2>
 
             </div>
 
 
-            <div class="shortcut-list">
+            <div class="live-status">
 
-                <div class="shortcut">
-                    <kbd>T</kbd>
-                    <span>Time format</span>
-                </div>
+                <span></span>
 
-                <div class="shortcut">
-                    <kbd>S</kbd>
-                    <span>Seconds</span>
-                </div>
+                LIVE
 
-                <div class="shortcut">
-                    <kbd>F</kbd>
-                    <span>Fullscreen</span>
-                </div>
+            </div>
 
-                <div class="shortcut">
-                    <kbd>Space</kbd>
-                    <span>Stopwatch</span>
+        </div>
+
+
+        <div class="clock-display">
+
+            <h1 id="time">
+                00:00:00
+            </h1>
+
+            <p id="period">
+                24 HOUR
+            </p>
+
+        </div>
+
+
+        <div class="date-section">
+
+            <h2 id="date">
+                Loading...
+            </h2>
+
+            <p id="timezone">
+                Timezone
+            </p>
+
+        </div>
+
+
+        <!-- DAY PROGRESS -->
+
+        <div class="day-progress">
+
+            <div class="progress-info">
+
+                <span>
+                    Day Progress
+                </span>
+
+                <span id="dayProgressText">
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    id="dayProgressBar"
+                    class="progress-fill">
                 </div>
 
             </div>
 
-        </section>
-
-    </main>
+        </div>
 
 
-    <footer>
+        <div class="clock-controls">
 
-        <p>
-            TimeHub Dashboard
-        </p>
+            <button
+                id="formatToggle"
+                class="primary-button">
 
-        <span id="status">
-            System ready
-        </span>
+                Switch to 12 Hour
 
-    </footer>
+            </button>
 
 
-    <script src="clock.js"></script>
+            <button
+                id="secondsToggle"
+                class="secondary-button">
+
+                Hide Seconds
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         STREAK
+    ====================================== -->
+
+    <section class="streak-card">
+
+        <div class="streak-header">
+
+            <div>
+
+                <p class="eyebrow">
+                    DAILY PROGRESS
+                </p>
+
+                <h2>
+                    Learning Streak
+                </h2>
+
+            </div>
+
+
+            <div class="streak-number">
+
+                <strong id="streakCount">
+                    0
+                </strong>
+
+                <span>
+                    Days
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="today-update">
+
+            <div class="update-text">
+
+                <span class="update-label">
+                    TODAY
+                </span>
+
+                <h3 id="todayStatus">
+                    Start today's update
+                </h3>
+
+                <p id="lastUpdate">
+                    Complete your daily learning session.
+                </p>
+
+            </div>
+
+
+            <button
+                id="completeDayButton"
+                class="primary-button">
+
+                Complete Today
+
+            </button>
+
+        </div>
+
+
+        <div class="streak-message">
+
+            <p id="streakMessage">
+                Build your streak one day at a time.
+            </p>
+
+        </div>
+
+
+        <!-- 10 DAY STREAK -->
+
+        <div class="streak-days">
+
+            <div class="streak-title">
+
+                <span>
+                    10 Day Goal
+                </span>
+
+                <span id="streakGoalText">
+                    0 / 10
+                </span>
+
+            </div>
+
+
+            <div class="streak-grid">
+
+                <div class="streak-day" data-day="1">
+                    1
+                </div>
+
+                <div class="streak-day" data-day="2">
+                    2
+                </div>
+
+                <div class="streak-day" data-day="3">
+                    3
+                </div>
+
+                <div class="streak-day" data-day="4">
+                    4
+                </div>
+
+                <div class="streak-day" data-day="5">
+                    5
+                </div>
+
+                <div class="streak-day" data-day="6">
+                    6
+                </div>
+
+                <div class="streak-day" data-day="7">
+                    7
+                </div>
+
+                <div class="streak-day" data-day="8">
+                    8
+                </div>
+
+                <div class="streak-day" data-day="9">
+                    9
+                </div>
+
+                <div class="streak-day" data-day="10">
+                    10
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         STATS
+    ====================================== -->
+
+    <section class="stats-grid">
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                DAY
+            </span>
+
+            <strong id="dayName">
+                --
+            </strong>
+
+            <small>
+                Current day
+            </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                WEEK
+            </span>
+
+            <strong id="weekNumber">
+                --
+            </strong>
+
+            <small>
+                Week number
+            </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                DAY OF YEAR
+            </span>
+
+            <strong id="dayOfYear">
+                --
+            </strong>
+
+            <small>
+                Current year
+            </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                YEAR
+            </span>
+
+            <strong id="year">
+                --
+            </strong>
+
+            <small>
+                Current year
+            </small>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         WORLD CLOCK
+    ====================================== -->
+
+    <section class="world-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <p class="eyebrow">
+                    GLOBAL TIME
+                </p>
+
+                <h2>
+                    World Clock
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="world-grid">
+
+
+            <div class="world-card">
+
+                <div class="world-info">
+
+                    <span class="country">
+                        Nepal
+                    </span>
+
+                    <strong>
+                        Kathmandu
+                    </strong>
+
+                </div>
+
+                <div
+                    id="kathmandu"
+                    class="world-time">
+
+                    --:--:--
+
+                </div>
+
+            </div>
+
+
+
+            <div class="world-card">
+
+                <div class="world-info">
+
+                    <span class="country">
+                        United Kingdom
+                    </span>
+
+                    <strong>
+                        London
+                    </strong>
+
+                </div>
+
+                <div
+                    id="london"
+                    class="world-time">
+
+                    --:--:--
+
+                </div>
+
+            </div>
+
+
+
+            <div class="world-card">
+
+                <div class="world-info">
+
+                    <span class="country">
+                        United States
+                    </span>
+
+                    <strong>
+                        New York
+                    </strong>
+
+                </div>
+
+                <div
+                    id="newYork"
+                    class="world-time">
+
+                    --:--:--
+
+                </div>
+
+            </div>
+
+
+
+            <div class="world-card">
+
+                <div class="world-info">
+
+                    <span class="country">
+                        Japan
+                    </span>
+
+                    <strong>
+                        Tokyo
+                    </strong>
+
+                </div>
+
+                <div
+                    id="tokyo"
+                    class="world-time">
+
+                    --:--:--
+
+                </div>
+
+            </div>
+
+
+
+            <div class="world-card">
+
+                <div class="world-info">
+
+                    <span class="country">
+                        United Arab Emirates
+                    </span>
+
+                    <strong>
+                        Dubai
+                    </strong>
+
+                </div>
+
+                <div
+                    id="dubai"
+                    class="world-time">
+
+                    --:--:--
+
+                </div>
+
+            </div>
+
+
+
+            <div class="world-card">
+
+                <div class="world-info">
+
+                    <span class="country">
+                        Australia
+                    </span>
+
+                    <strong>
+                        Sydney
+                    </strong>
+
+                </div>
+
+                <div
+                    id="sydney"
+                    class="world-time">
+
+                    --:--:--
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         TOOLS
+    ====================================== -->
+
+    <section class="tools-grid">
+
+
+        <!-- STOPWATCH -->
+
+        <article class="tool-card">
+
+            <div class="tool-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        TOOL
+                    </p>
+
+                    <h2>
+                        Stopwatch
+                    </h2>
+
+                </div>
+
+                <span class="tool-status">
+                    READY
+                </span>
+
+            </div>
+
+
+            <div
+                id="stopwatchDisplay"
+                class="tool-display">
+
+                00:00:00
+
+            </div>
+
+
+            <div class="tool-buttons">
+
+                <button
+                    id="stopwatchStart"
+                    class="primary-button">
+
+                    Start
+
+                </button>
+
+
+                <button
+                    id="stopwatchReset"
+                    class="secondary-button">
+
+                    Reset
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- COUNTDOWN -->
+
+        <article class="tool-card">
+
+            <div class="tool-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        TOOL
+                    </p>
+
+                    <h2>
+                        Countdown
+                    </h2>
+
+                </div>
+
+                <span class="tool-status">
+                    TIMER
+                </span>
+
+            </div>
+
+
+            <div
+                id="countdownDisplay"
+                class="tool-display">
+
+                05:00
+
+            </div>
+
+
+            <div class="timer-input">
+
+                <input
+                    id="countdownMinutes"
+                    type="number"
+                    min="1"
+                    max="999"
+                    value="5">
+
+                <span>
+                    minutes
+                </span>
+
+            </div>
+
+
+            <div class="tool-buttons">
+
+                <button
+                    id="countdownStart"
+                    class="primary-button">
+
+                    Start
+
+                </button>
+
+
+                <button
+                    id="countdownReset"
+                    class="secondary-button">
+
+                    Reset
+
+                </button>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+
+    <!-- =====================================
+         SHORTCUTS
+    ====================================== -->
+
+    <section class="shortcuts-card">
+
+        <div>
+
+            <p class="eyebrow">
+                KEYBOARD
+            </p>
+
+            <h2>
+                Shortcuts
+            </h2>
+
+        </div>
+
+
+        <div class="shortcut-list">
+
+            <div class="shortcut">
+                <kbd>T</kbd>
+                <span>Time format</span>
+            </div>
+
+            <div class="shortcut">
+                <kbd>S</kbd>
+                <span>Seconds</span>
+            </div>
+
+            <div class="shortcut">
+                <kbd>F</kbd>
+                <span>Fullscreen</span>
+            </div>
+
+            <div class="shortcut">
+                <kbd>Space</kbd>
+                <span>Stopwatch</span>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<footer>
+
+    <p>
+        TimeHub Dashboard
+    </p>
+
+    <span id="status">
+        System ready
+    </span>
+
+</footer>
+
+
+
+<!-- JAVASCRIPT FILES -->
+
+<script src="clock.js"></script>
+<script src="timer.js"></script>
+<script src="theme.js"></script>
+<script src="worldclock.js"></script>
 
 </body>
+
 </html>
