@@ -1,6 +1,6 @@
-/* =========================================
+/* ===============================
    RESET
-========================================= */
+================================ */
 
 * {
     margin: 0;
@@ -9,27 +9,23 @@
 }
 
 
-/* =========================================
+/* ===============================
    VARIABLES
-========================================= */
+================================ */
 
 :root {
-
     --background: #0b1120;
     --background-secondary: #111827;
 
     --card: rgba(255, 255, 255, 0.06);
-
-    --card-hover: rgba(255, 255, 255, 0.09);
+    --card-hover: rgba(255, 255, 255, 0.1);
 
     --border: rgba(255, 255, 255, 0.1);
 
     --text: #f8fafc;
-
     --muted: #94a3b8;
 
     --accent: #38bdf8;
-
     --accent-dark: #0284c7;
 
     --success: #22c55e;
@@ -39,24 +35,16 @@
 }
 
 
-/* =========================================
-   LIGHT THEME
-========================================= */
-
 body.light {
-
     --background: #f1f5f9;
-
     --background-secondary: #e2e8f0;
 
-    --card: rgba(255, 255, 255, 0.8);
-
-    --card-hover: rgba(255, 255, 255, 1);
+    --card: rgba(255, 255, 255, 0.85);
+    --card-hover: white;
 
     --border: rgba(15, 23, 42, 0.1);
 
     --text: #0f172a;
-
     --muted: #64748b;
 
     --shadow:
@@ -64,83 +52,61 @@ body.light {
 }
 
 
-/* =========================================
+/* ===============================
    BODY
-========================================= */
+================================ */
 
 body {
-
     min-height: 100vh;
 
     font-family:
-        Inter,
         Arial,
         Helvetica,
         sans-serif;
 
     background:
         radial-gradient(
-            circle at 10% 0%,
-            rgba(56, 189, 248, 0.15),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 90% 100%,
-            rgba(59, 130, 246, 0.12),
+            circle at top left,
+            rgba(56, 189, 248, 0.12),
             transparent 30%
         ),
         var(--background);
 
     color: var(--text);
 
-    transition:
-        background 0.3s ease,
-        color 0.3s ease;
+    transition: 0.3s;
 }
 
 
-/* =========================================
-   TOP BAR
-========================================= */
+/* ===============================
+   TOPBAR
+================================ */
 
 .topbar {
-
-    width: 100%;
-
     padding: 20px 5%;
 
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
 
     border-bottom: 1px solid var(--border);
 
     background: var(--card);
-
-    backdrop-filter: blur(15px);
 }
 
 
 .brand {
-
     display: flex;
-
     align-items: center;
-
     gap: 12px;
 }
 
 
 .brand-icon {
-
     width: 42px;
-
     height: 42px;
 
     display: grid;
-
     place-items: center;
 
     border-radius: 12px;
@@ -153,83 +119,263 @@ body {
         );
 
     color: white;
-
-    font-weight: 800;
-
-    font-size: 20px;
-}
-
-
-.brand h2 {
-
-    font-size: 18px;
+    font-weight: bold;
 }
 
 
 .brand span {
-
     font-size: 12px;
-
     color: var(--muted);
 }
 
 
 .top-actions {
-
     display: flex;
-
     gap: 10px;
 }
 
 
-/* =========================================
-   BUTTONS
-========================================= */
-
 button {
-
     border: none;
-
     cursor: pointer;
 
     font: inherit;
 
-    transition:
-        transform 0.2s ease,
-        opacity 0.2s ease;
+    transition: 0.2s;
 }
 
 
 button:hover {
-
     transform: translateY(-2px);
-
     opacity: 0.9;
 }
 
 
-button:active {
+.top-actions button {
+    padding: 10px 14px;
 
-    transform: translateY(0);
-}
-
-
-.icon-button {
-
-    padding: 9px 14px;
-
-    border-radius: 9px;
-
-    color: var(--text);
+    border-radius: 8px;
 
     background: var(--card);
+
+    color: var(--text);
 
     border: 1px solid var(--border);
 }
 
 
-.primary-button {
+/* ===============================
+   DASHBOARD
+================================ */
 
+.dashboard {
+    width: min(1100px, 92%);
+
+    margin: 40px auto;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+
+.eyebrow {
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    color: var(--accent);
+
+    font-weight: bold;
+
+    margin-bottom: 6px;
+}
+
+
+/* ===============================
+   CLOCK
+================================ */
+
+.clock-card,
+.streak-card,
+.stat-card,
+.tool-card,
+.shortcuts-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    box-shadow: var(--shadow);
+}
+
+
+.clock-card {
+    padding: 40px;
+}
+
+
+.clock-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+}
+
+
+#greeting {
+    color: var(--muted);
+}
+
+
+.live-status {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color: var(--success);
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+
+.live-status span {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: var(--success);
+}
+
+
+.clock-display {
+    text-align: center;
+
+    margin: 45px 0 25px;
+}
+
+
+#time {
+    font-size:
+        clamp(60px, 11vw, 125px);
+
+    font-variant-numeric:
+        tabular-nums;
+
+    letter-spacing: 5px;
+}
+
+
+#period {
+    margin-top: 15px;
+
+    color: var(--muted);
+
+    letter-spacing: 3px;
+
+    font-size: 12px;
+}
+
+
+.date-section {
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+
+#date {
+    font-size: 20px;
+}
+
+
+#timezone {
+    margin-top: 8px;
+
+    color: var(--muted);
+}
+
+
+/* ===============================
+   PROGRESS
+================================ */
+
+.day-progress {
+    max-width: 700px;
+
+    margin: auto;
+}
+
+
+.progress-info {
+    display: flex;
+
+    justify-content: space-between;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-bottom: 8px;
+}
+
+
+.progress-bar {
+    width: 100%;
+
+    height: 8px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background:
+        var(--background-secondary);
+}
+
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--accent-dark),
+            var(--accent)
+        );
+
+    transition: width 0.5s;
+}
+
+
+/* ===============================
+   BUTTONS
+================================ */
+
+.clock-controls,
+.tool-buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-top: 30px;
+}
+
+
+.primary-button {
     padding: 12px 18px;
 
     border-radius: 10px;
@@ -242,338 +388,144 @@ button:active {
             var(--accent),
             var(--accent-dark)
         );
-
-    font-weight: 600;
 }
 
 
 .secondary-button {
-
     padding: 12px 18px;
 
     border-radius: 10px;
 
-    color: var(--text);
-
     background: var(--card);
 
-    border: 1px solid var(--border);
+    color: var(--text);
 
-    font-weight: 600;
+    border: 1px solid var(--border);
 }
 
 
-/* =========================================
-   DASHBOARD
-========================================= */
+/* ===============================
+   DAILY STREAK
+================================ */
 
-.dashboard {
+.streak-card {
+    padding: 30px;
+}
 
-    width: min(1100px, 92%);
 
-    margin: 45px auto;
-
+.streak-header {
     display: flex;
 
-    flex-direction: column;
+    justify-content: space-between;
 
-    gap: 22px;
+    align-items: center;
+
+    margin-bottom: 25px;
 }
 
 
-/* =========================================
-   EYEBROW
-========================================= */
+.streak-number {
+    text-align: center;
 
-.eyebrow {
+    min-width: 90px;
 
+    padding: 12px;
+
+    border-radius: 15px;
+
+    background:
+        var(--background-secondary);
+}
+
+
+.streak-number strong {
+    display: block;
+
+    font-size: 32px;
+
+    color: var(--accent);
+}
+
+
+.streak-number span {
+    font-size: 11px;
+
+    color: var(--muted);
+}
+
+
+.today-update {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 20px;
+
+    border-radius: 15px;
+
+    background:
+        var(--background-secondary);
+}
+
+
+.update-label {
     font-size: 11px;
 
     letter-spacing: 2px;
 
-    font-weight: 700;
-
     color: var(--accent);
 
-    margin-bottom: 6px;
+    font-weight: bold;
 }
 
 
-/* =========================================
-   CLOCK CARD
-========================================= */
+.update-text h3 {
+    margin: 6px 0;
 
-.clock-card {
-
-    padding: 42px;
-
-    border-radius: 24px;
-
-    border: 1px solid var(--border);
-
-    background: var(--card);
-
-    box-shadow: var(--shadow);
-
-    backdrop-filter: blur(20px);
+    font-size: 18px;
 }
 
 
-.clock-header {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: flex-start;
-}
-
-
-.greeting {
-
-    color: var(--muted);
-
-    font-size: 17px;
-}
-
-
-.live-indicator {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-    font-size: 11px;
-
-    letter-spacing: 1px;
-
-    color: var(--success);
-
-    font-weight: 700;
-}
-
-
-.live-dot {
-
-    width: 8px;
-
-    height: 8px;
-
-    border-radius: 50%;
-
-    background: var(--success);
-
-    box-shadow:
-        0 0 12px var(--success);
-
-    animation: pulse 1.5s infinite;
-}
-
-
-@keyframes pulse {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.35;
-    }
-}
-
-
-/* =========================================
-   CLOCK
-========================================= */
-
-.clock-display {
-
-    text-align: center;
-
-    margin: 45px 0 30px;
-}
-
-
-#time {
-
-    font-size:
-        clamp(60px, 11vw, 125px);
-
-    font-weight: 800;
-
-    letter-spacing: 5px;
-
-    line-height: 1;
-
-    font-variant-numeric:
-        tabular-nums;
-
-    text-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.35);
-}
-
-
-#period {
-
-    margin-top: 15px;
-
-    color: var(--muted);
-
-    font-size: 12px;
-
-    letter-spacing: 3px;
-}
-
-
-/* =========================================
-   DATE
-========================================= */
-
-.date-section {
-
-    text-align: center;
-
-    margin-bottom: 35px;
-}
-
-
-#date {
-
-    font-size: 20px;
-
-    font-weight: 500;
-}
-
-
-#timezone {
-
-    margin-top: 8px;
-
-    color: var(--muted);
-
-    font-size: 14px;
-}
-
-
-/* =========================================
-   DAY PROGRESS
-========================================= */
-
-.day-progress {
-
-    margin: 0 auto 30px;
-
-    max-width: 700px;
-}
-
-
-.progress-info {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-bottom: 9px;
-
-    color: var(--muted);
-
+.update-text p {
     font-size: 13px;
+
+    color: var(--muted);
 }
 
 
-.progress-bar {
+.streak-message {
+    margin-top: 20px;
 
-    width: 100%;
+    color: var(--muted);
 
-    height: 8px;
-
-    overflow: hidden;
-
-    border-radius: 20px;
-
-    background: rgba(255, 255, 255, 0.08);
+    text-align: center;
 }
 
 
-.progress-fill {
-
-    height: 100%;
-
-    width: 0%;
-
-    border-radius: inherit;
-
-    background:
-        linear-gradient(
-            90deg,
-            var(--accent-dark),
-            var(--accent)
-        );
-
-    transition: width 0.5s ease;
-}
-
-
-/* =========================================
-   CLOCK CONTROLS
-========================================= */
-
-.clock-controls {
-
-    display: flex;
-
-    justify-content: center;
-
-    gap: 12px;
-
-    flex-wrap: wrap;
-}
-
-
-/* =========================================
+/* ===============================
    STATS
-========================================= */
+================================ */
 
 .stats-grid {
-
     display: grid;
 
     grid-template-columns:
         repeat(4, 1fr);
 
-    gap: 18px;
+    gap: 15px;
 }
 
 
 .stat-card {
-
     padding: 22px;
-
-    border-radius: 18px;
-
-    border: 1px solid var(--border);
-
-    background: var(--card);
-
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease;
-}
-
-
-.stat-card:hover {
-
-    transform: translateY(-4px);
-
-    background: var(--card-hover);
 }
 
 
 .stat-label {
-
     display: block;
 
     font-size: 10px;
@@ -587,169 +539,118 @@ button:active {
 
 
 .stat-card strong {
-
     display: block;
 
-    font-size: 30px;
+    font-size: 25px;
 }
 
 
 .stat-card small {
-
     display: block;
 
-    margin-top: 5px;
+    margin-top: 6px;
 
     color: var(--muted);
 }
 
 
-/* =========================================
+/* ===============================
    TOOLS
-========================================= */
+================================ */
 
 .tools-grid {
-
     display: grid;
 
     grid-template-columns:
         repeat(2, 1fr);
 
-    gap: 18px;
+    gap: 20px;
 }
 
 
 .tool-card {
-
     padding: 28px;
-
-    border-radius: 20px;
-
-    border: 1px solid var(--border);
-
-    background: var(--card);
 }
 
 
 .tool-header {
-
     display: flex;
 
     justify-content: space-between;
-
-    align-items: flex-start;
-}
-
-
-.tool-header h2 {
-
-    font-size: 21px;
 }
 
 
 .tool-status {
-
     font-size: 10px;
-
-    letter-spacing: 1px;
 
     color: var(--muted);
 
-    padding: 5px 9px;
-
     border: 1px solid var(--border);
+
+    padding: 5px 8px;
 
     border-radius: 6px;
 }
 
 
 .tool-display {
-
-    margin: 30px 0;
-
     text-align: center;
 
     font-size: 48px;
 
-    font-weight: 700;
+    font-weight: bold;
 
-    font-variant-numeric:
-        tabular-nums;
-}
-
-
-.tool-buttons {
-
-    display: flex;
-
-    justify-content: center;
-
-    gap: 10px;
-
-    flex-wrap: wrap;
+    margin: 30px 0;
 }
 
 
 .timer-input {
-
     display: flex;
 
     justify-content: center;
 
     align-items: center;
 
-    gap: 8px;
+    gap: 10px;
 
     color: var(--muted);
 }
 
 
 .timer-input input {
-
     width: 90px;
 
     padding: 10px;
 
-    border-radius: 8px;
+    text-align: center;
 
-    border: 1px solid var(--border);
-
-    background: var(--background-secondary);
+    background:
+        var(--background-secondary);
 
     color: var(--text);
 
-    outline: none;
+    border: 1px solid var(--border);
 
-    text-align: center;
+    border-radius: 8px;
 }
 
 
-/* =========================================
+/* ===============================
    SHORTCUTS
-========================================= */
+================================ */
 
 .shortcuts-card {
-
-    padding: 25px 28px;
+    padding: 25px;
 
     display: flex;
 
     justify-content: space-between;
 
     align-items: center;
-
-    gap: 20px;
-
-    border-radius: 20px;
-
-    border: 1px solid var(--border);
-
-    background: var(--card);
 }
 
 
 .shortcut-list {
-
     display: flex;
 
     gap: 15px;
@@ -759,12 +660,11 @@ button:active {
 
 
 .shortcut {
-
     display: flex;
 
-    align-items: center;
+    gap: 6px;
 
-    gap: 7px;
+    align-items: center;
 
     color: var(--muted);
 
@@ -773,30 +673,27 @@ button:active {
 
 
 kbd {
-
-    padding: 5px 9px;
+    padding: 5px 8px;
 
     border-radius: 6px;
 
-    background: var(--background-secondary);
+    background:
+        var(--background-secondary);
 
     border: 1px solid var(--border);
 
     color: var(--text);
-
-    font-weight: 700;
 }
 
 
-/* =========================================
+/* ===============================
    FOOTER
-========================================= */
+================================ */
 
 footer {
-
     width: min(1100px, 92%);
 
-    margin: 0 auto 35px;
+    margin: 0 auto 30px;
 
     display: flex;
 
@@ -808,28 +705,27 @@ footer {
 }
 
 
-/* =========================================
-   RESPONSIVE
-========================================= */
+/* ===============================
+   MOBILE
+================================ */
 
 @media (max-width: 850px) {
 
     .stats-grid {
-
         grid-template-columns:
             repeat(2, 1fr);
     }
 
     .tools-grid {
-
         grid-template-columns: 1fr;
     }
 
     .shortcuts-card {
-
         flex-direction: column;
 
         align-items: flex-start;
+
+        gap: 20px;
     }
 }
 
@@ -837,56 +733,43 @@ footer {
 @media (max-width: 600px) {
 
     .topbar {
-
-        padding: 16px 4%;
+        padding: 15px;
     }
 
     .brand span {
-
         display: none;
     }
 
-    .dashboard {
-
-        width: 94%;
-
-        margin: 25px auto;
-    }
-
     .clock-card {
-
-        padding: 28px 18px;
+        padding: 25px 15px;
     }
 
     #time {
-
-        font-size: 55px;
+        font-size: 52px;
 
         letter-spacing: 1px;
     }
 
-    #date {
-
-        font-size: 16px;
-    }
-
     .stats-grid {
-
         grid-template-columns: 1fr;
     }
 
-    .clock-controls button {
+    .today-update {
+        flex-direction: column;
 
+        align-items: stretch;
+    }
+
+    .today-update button {
         width: 100%;
     }
 
-    .tool-display {
-
-        font-size: 38px;
+    .top-actions button {
+        padding: 8px;
+        font-size: 12px;
     }
 
     footer {
-
         flex-direction: column;
 
         gap: 5px;
