@@ -1,234 +1,325 @@
-const timerHours =
+// =========================================
+// TIMEHUB TIMER
+// =========================================
+
+
+// =========================================
+// STOPWATCH
+// =========================================
+
+const stopwatchDisplay =
     document.getElementById(
-        "timerHours"
+        "stopwatchDisplay"
     );
 
-const timerMinutes =
+const stopwatchStart =
     document.getElementById(
-        "timerMinutes"
+        "stopwatchStart"
     );
 
-const timerSecondsInput =
+const stopwatchReset =
     document.getElementById(
-        "timerSeconds"
-    );
-
-const timerDisplay =
-    document.getElementById(
-        "timerDisplay"
-    );
-
-const startTimer =
-    document.getElementById(
-        "startTimer"
-    );
-
-const pauseTimer =
-    document.getElementById(
-        "pauseTimer"
-    );
-
-const resetTimer =
-    document.getElementById(
-        "resetTimer"
-    );
-
-const timerProgress =
-    document.getElementById(
-        "timerProgress"
+        "stopwatchReset"
     );
 
 
-let totalTimerSeconds = 0;
+let stopwatchSeconds = 0;
 
-let remainingTimerSeconds = 0;
+let stopwatchInterval = null;
 
-let timerInterval = null;
+let stopwatchRunning = false;
 
 
-const updateTimer = () => {
+// =========================================
+// STOPWATCH DISPLAY
+// =========================================
+
+function updateStopwatch() {
 
     const hours =
         Math.floor(
-            remainingTimerSeconds / 3600
+            stopwatchSeconds / 3600
         );
-
 
     const minutes =
         Math.floor(
-            (remainingTimerSeconds % 3600) /
-            60
+            (stopwatchSeconds % 3600) / 60
         );
 
-
     const seconds =
-        remainingTimerSeconds % 60;
+        stopwatchSeconds % 60;
 
 
-    timerDisplay.textContent =
+    stopwatchDisplay.textContent =
         `${String(hours).padStart(2, "0")}:` +
         `${String(minutes).padStart(2, "0")}:` +
         `${String(seconds).padStart(2, "0")}`;
 
-
-    if (totalTimerSeconds > 0) {
-
-        const progress =
-            (
-                (
-                    totalTimerSeconds -
-                    remainingTimerSeconds
-                ) /
-                totalTimerSeconds
-            ) * 100;
+}
 
 
-        timerProgress.style.width =
-            `${progress}%`;
+// =========================================
+// START / PAUSE
+// =========================================
 
-    }
-
-};
-
-
-startTimer.addEventListener(
+stopwatchStart.addEventListener(
     "click",
     () => {
 
-        if (timerInterval) {
+        if (stopwatchRunning) {
+
+            clearInterval(
+                stopwatchInterval
+            );
+
+            stopwatchRunning =
+                false;
+
+            stopwatchStart.textContent =
+                "Resume";
 
             return;
-
         }
 
 
-        if (remainingTimerSeconds === 0) {
+        stopwatchRunning =
+            true;
 
-            const hours =
-                Number(
-                    timerHours.value
-                ) || 0;
-
-
-            const minutes =
-                Number(
-                    timerMinutes.value
-                ) || 0;
+        stopwatchStart.textContent =
+            "Pause";
 
 
-            const seconds =
-                Number(
-                    timerSecondsInput.value
-                ) || 0;
+        stopwatchInterval =
+            setInterval(
+                () => {
 
+                    stopwatchSeconds++;
 
-            totalTimerSeconds =
-                hours * 3600 +
-                minutes * 60 +
-                seconds;
+                    updateStopwatch();
 
-
-            remainingTimerSeconds =
-                totalTimerSeconds;
-
-
-            if (totalTimerSeconds <= 0) {
-
-                alert(
-                    "Enter a valid timer."
-                );
-
-                return;
-
-            }
-
-        }
-
-
-        updateTimer();
-
-
-        timerInterval =
-            setInterval(() => {
-
-                if (
-                    remainingTimerSeconds <=
-                    0
-                ) {
-
-                    clearInterval(
-                        timerInterval
-                    );
-
-
-                    timerInterval = null;
-
-
-                    alert(
-                        "Timer finished!"
-                    );
-
-
-                    return;
-
-                }
-
-
-                remainingTimerSeconds--;
-
-                updateTimer();
-
-            }, 1000);
+                },
+                1000
+            );
 
     }
 );
 
 
-pauseTimer.addEventListener(
+// =========================================
+// RESET
+// =========================================
+
+stopwatchReset.addEventListener(
     "click",
     () => {
 
         clearInterval(
-            timerInterval
+            stopwatchInterval
         );
 
-        timerInterval = null;
+        stopwatchSeconds =
+            0;
+
+        stopwatchRunning =
+            false;
+
+        stopwatchStart.textContent =
+            "Start";
+
+        updateStopwatch();
 
     }
 );
 
 
-resetTimer.addEventListener(
+// =========================================
+// COUNTDOWN
+// =========================================
+
+const countdownDisplay =
+    document.getElementById(
+        "countdownDisplay"
+    );
+
+const countdownMinutes =
+    document.getElementById(
+        "countdownMinutes"
+    );
+
+const countdownStart =
+    document.getElementById(
+        "countdownStart"
+    );
+
+const countdownReset =
+    document.getElementById(
+        "countdownReset"
+    );
+
+
+let countdownSeconds =
+    Number(countdownMinutes.value) * 60;
+
+let countdownInterval = null;
+
+let countdownRunning = false;
+
+
+// =========================================
+// DISPLAY
+// =========================================
+
+function updateCountdown() {
+
+    const minutes =
+        Math.floor(
+            countdownSeconds / 60
+        );
+
+    const seconds =
+        countdownSeconds % 60;
+
+
+    countdownDisplay.textContent =
+        `${String(minutes).padStart(2, "0")}:` +
+        `${String(seconds).padStart(2, "0")}`;
+
+}
+
+
+// =========================================
+// RESET COUNTDOWN
+// =========================================
+
+function resetCountdown() {
+
+    clearInterval(
+        countdownInterval
+    );
+
+    countdownRunning =
+        false;
+
+    countdownSeconds =
+        Number(countdownMinutes.value) * 60;
+
+    countdownStart.textContent =
+        "Start";
+
+    updateCountdown();
+
+}
+
+
+// =========================================
+// START COUNTDOWN
+// =========================================
+
+countdownStart.addEventListener(
     "click",
     () => {
 
-        clearInterval(
-            timerInterval
-        );
+        if (countdownRunning) {
+
+            clearInterval(
+                countdownInterval
+            );
+
+            countdownRunning =
+                false;
+
+            countdownStart.textContent =
+                "Resume";
+
+            return;
+        }
 
 
-        timerInterval = null;
+        if (countdownSeconds <= 0) {
 
-        totalTimerSeconds = 0;
+            resetCountdown();
 
-        remainingTimerSeconds = 0;
-
-
-        timerHours.value = "";
-
-        timerMinutes.value = "";
-
-        timerSecondsInput.value = "";
+        }
 
 
-        timerProgress.style.width =
-            "0%";
+        countdownRunning =
+            true;
+
+        countdownStart.textContent =
+            "Pause";
 
 
-        updateTimer();
+        countdownInterval =
+            setInterval(
+                () => {
+
+                    countdownSeconds--;
+
+                    updateCountdown();
+
+
+                    if (
+                        countdownSeconds <= 0
+                    ) {
+
+                        clearInterval(
+                            countdownInterval
+                        );
+
+                        countdownRunning =
+                            false;
+
+                        countdownSeconds =
+                            0;
+
+                        countdownStart.textContent =
+                            "Start";
+
+                        countdownDisplay.textContent =
+                            "00:00";
+
+                        const status =
+                            document.getElementById(
+                                "status"
+                            );
+
+                        status.textContent =
+                            "Countdown finished";
+
+                    }
+
+                },
+                1000
+            );
 
     }
 );
 
 
-updateTimer();
+// =========================================
+// RESET
+// =========================================
+
+countdownReset.addEventListener(
+    "click",
+    resetCountdown
+);
+
+
+// =========================================
+// INPUT CHANGE
+// =========================================
+
+countdownMinutes.addEventListener(
+    "change",
+    resetCountdown
+);
+
+
+// =========================================
+// INITIAL
+// =========================================
+
+updateStopwatch();
+
+updateCountdown();
