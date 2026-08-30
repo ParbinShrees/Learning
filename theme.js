@@ -1,29 +1,55 @@
-const themeButton =
+// =========================================
+// TIMEHUB THEME
+// =========================================
+
+
+const themeToggle =
     document.getElementById(
-        "themeButton"
+        "themeToggle"
+    );
+
+const fullscreenButton =
+    document.getElementById(
+        "fullscreenButton"
     );
 
 
-const savedTheme =
-    localStorage.getItem(
-        "theme"
-    );
+// =========================================
+// LOAD THEME
+// =========================================
+
+function loadTheme() {
+
+    const savedTheme =
+        localStorage.getItem(
+            "theme"
+        );
 
 
-if (savedTheme === "light") {
+    if (savedTheme === "light") {
 
-    document.body.classList.add(
-        "light"
-    );
+        document.body.classList.add(
+            "light"
+        );
 
+        themeToggle.textContent =
+            "Dark Mode";
 
-    themeButton.textContent =
-        "Dark";
+    } else {
+
+        themeToggle.textContent =
+            "Light Mode";
+
+    }
 
 }
 
 
-themeButton.addEventListener(
+// =========================================
+// CHANGE THEME
+// =========================================
+
+themeToggle.addEventListener(
     "click",
     () => {
 
@@ -38,12 +64,6 @@ themeButton.addEventListener(
             );
 
 
-        themeButton.textContent =
-            isLight
-                ? "Dark"
-                : "Light";
-
-
         localStorage.setItem(
             "theme",
             isLight
@@ -51,5 +71,60 @@ themeButton.addEventListener(
                 : "dark"
         );
 
+
+        themeToggle.textContent =
+            isLight
+                ? "Dark Mode"
+                : "Light Mode";
+
     }
 );
+
+
+// =========================================
+// FULLSCREEN
+// =========================================
+
+fullscreenButton.addEventListener(
+    "click",
+    async () => {
+
+        try {
+
+            if (
+                !document.fullscreenElement
+            ) {
+
+                await document.documentElement
+                    .requestFullscreen();
+
+                fullscreenButton.textContent =
+                    "Exit Fullscreen";
+
+            } else {
+
+                await document.exitFullscreen();
+
+                fullscreenButton.textContent =
+                    "Fullscreen";
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Fullscreen error:",
+                error
+            );
+
+        }
+
+    }
+);
+
+
+// =========================================
+// INITIALIZE
+// =========================================
+
+loadTheme();
