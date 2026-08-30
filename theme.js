@@ -1,8 +1,3 @@
-// =========================================
-// TIMEHUB THEME
-// =========================================
-
-
 const themeToggle =
     document.getElementById(
         "themeToggle"
@@ -14,19 +9,16 @@ const fullscreenButton =
     );
 
 
-// =========================================
-// LOAD THEME
-// =========================================
-
 function loadTheme() {
 
-    const savedTheme =
-        localStorage.getItem(
-            "theme"
+    const theme =
+        Storage.get(
+            "theme",
+            "dark"
         );
 
 
-    if (savedTheme === "light") {
+    if (theme === "light") {
 
         document.body.classList.add(
             "light"
@@ -45,10 +37,6 @@ function loadTheme() {
 }
 
 
-// =========================================
-// CHANGE THEME
-// =========================================
-
 themeToggle.addEventListener(
     "click",
     () => {
@@ -58,32 +46,28 @@ themeToggle.addEventListener(
         );
 
 
-        const isLight =
+        const light =
             document.body.classList.contains(
                 "light"
             );
 
 
-        localStorage.setItem(
+        Storage.set(
             "theme",
-            isLight
+            light
                 ? "light"
                 : "dark"
         );
 
 
         themeToggle.textContent =
-            isLight
+            light
                 ? "Dark Mode"
                 : "Light Mode";
 
     }
 );
 
-
-// =========================================
-// FULLSCREEN
-// =========================================
 
 fullscreenButton.addEventListener(
     "click",
@@ -112,19 +96,12 @@ fullscreenButton.addEventListener(
 
         } catch (error) {
 
-            console.error(
-                "Fullscreen error:",
-                error
-            );
+            console.error(error);
 
         }
 
     }
 );
 
-
-// =========================================
-// INITIALIZE
-// =========================================
 
 loadTheme();
