@@ -1,86 +1,130 @@
-const cities = {
-
-    kathmandu: {
-
-        element: "kathmanduTime",
-
-        timeZone: "Asia/Kathmandu"
-
-    },
+// =========================================
+// TIMEHUB THEME
+// =========================================
 
 
-    london: {
+const themeToggle =
+    document.getElementById(
+        "themeToggle"
+    );
 
-        element: "londonTime",
-
-        timeZone: "Europe/London"
-
-    },
-
-
-    newYork: {
-
-        element: "newYorkTime",
-
-        timeZone: "America/New_York"
-
-    },
+const fullscreenButton =
+    document.getElementById(
+        "fullscreenButton"
+    );
 
 
-    tokyo: {
+// =========================================
+// LOAD THEME
+// =========================================
 
-        element: "tokyoTime",
+function loadTheme() {
 
-        timeZone: "Asia/Tokyo"
+    const savedTheme =
+        localStorage.getItem(
+            "theme"
+        );
+
+
+    if (savedTheme === "light") {
+
+        document.body.classList.add(
+            "light"
+        );
+
+        themeToggle.textContent =
+            "Dark Mode";
+
+    } else {
+
+        themeToggle.textContent =
+            "Light Mode";
 
     }
 
-};
+}
 
 
-const updateWorldClock = () => {
+// =========================================
+// CHANGE THEME
+// =========================================
 
-    Object.values(cities).forEach(
-        (city) => {
+themeToggle.addEventListener(
+    "click",
+    () => {
 
-            const element =
-                document.getElementById(
-                    city.element
-                );
-
-
-            const time =
-                new Date().toLocaleTimeString(
-                    "en-US",
-                    {
-                        timeZone:
-                            city.timeZone,
-
-                        hour: "2-digit",
-
-                        minute: "2-digit",
-
-                        second: "2-digit",
-
-                        hour12: true
-
-                    }
-                );
+        document.body.classList.toggle(
+            "light"
+        );
 
 
-            element.textContent =
-                time;
+        const isLight =
+            document.body.classList.contains(
+                "light"
+            );
+
+
+        localStorage.setItem(
+            "theme",
+            isLight
+                ? "light"
+                : "dark"
+        );
+
+
+        themeToggle.textContent =
+            isLight
+                ? "Dark Mode"
+                : "Light Mode";
+
+    }
+);
+
+
+// =========================================
+// FULLSCREEN
+// =========================================
+
+fullscreenButton.addEventListener(
+    "click",
+    async () => {
+
+        try {
+
+            if (
+                !document.fullscreenElement
+            ) {
+
+                await document.documentElement
+                    .requestFullscreen();
+
+                fullscreenButton.textContent =
+                    "Exit Fullscreen";
+
+            } else {
+
+                await document.exitFullscreen();
+
+                fullscreenButton.textContent =
+                    "Fullscreen";
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Fullscreen error:",
+                error
+            );
 
         }
-    );
 
-};
-
-
-updateWorldClock();
-
-
-setInterval(
-    updateWorldClock,
-    1000
+    }
 );
+
+
+// =========================================
+// INITIALIZE
+// =========================================
+
+loadTheme();
