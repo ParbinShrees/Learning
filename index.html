@@ -13,11 +13,17 @@
 <body>
 
 <header>
-    <h1>TimeHub</h1>
 
-    <button id="themeButton">
-        Dark Mode
-    </button>
+    <div>
+        <h1>TimeHub</h1>
+        <p>Personal Productivity Dashboard</p>
+    </div>
+
+    <div>
+        <button id="themeButton">Dark Mode</button>
+        <button id="fullscreenButton">Fullscreen</button>
+    </div>
+
 </header>
 
 
@@ -25,21 +31,46 @@
 
     <!-- CLOCK -->
 
-    <section class="card">
+    <section class="card clock-card">
 
         <p>LIVE CLOCK</p>
 
-        <h2 id="time">
-            00:00:00
+        <h2 id="greeting">
+            Good day
         </h2>
+
+        <div id="time">
+            00:00:00
+        </div>
 
         <h3 id="date">
             Loading...
         </h3>
 
+        <p id="timezone">
+            Loading timezone...
+        </p>
+
         <button id="formatButton">
             12 Hour
         </button>
+
+        <button id="secondsButton">
+            Hide Seconds
+        </button>
+
+        <div class="progress">
+
+            <div class="progress-info">
+                <span>Day Progress</span>
+                <span id="dayProgress">0%</span>
+            </div>
+
+            <div class="progress-bar">
+                <div id="dayProgressBar"></div>
+            </div>
+
+        </div>
 
     </section>
 
@@ -83,9 +114,9 @@
 
         <p>STOPWATCH</p>
 
-        <h2 id="stopwatch">
+        <div id="stopwatch">
             00:00:00
-        </h2>
+        </div>
 
         <button id="startStopwatch">
             Start
@@ -94,6 +125,12 @@
         <button id="resetStopwatch">
             Reset
         </button>
+
+        <button id="lapButton">
+            Lap
+        </button>
+
+        <ul id="laps"></ul>
 
     </section>
 
@@ -107,13 +144,13 @@
         <input
             id="minutesInput"
             type="number"
-            value="5"
             min="1"
+            value="5"
         >
 
-        <h2 id="countdown">
+        <div id="countdown">
             05:00
-        </h2>
+        </div>
 
         <button id="startCountdown">
             Start
@@ -126,19 +163,57 @@
     </section>
 
 
+    <!-- POMODORO -->
+
+    <section class="card">
+
+        <p>POMODORO</p>
+
+        <h3 id="pomodoroMode">
+            Focus
+        </h3>
+
+        <div id="pomodoro">
+            25:00
+        </div>
+
+        <button id="startPomodoro">
+            Start
+        </button>
+
+        <button id="resetPomodoro">
+            Reset
+        </button>
+
+        <button id="focusButton">
+            Focus
+        </button>
+
+        <button id="breakButton">
+            Break
+        </button>
+
+    </section>
+
+
     <!-- STREAK -->
 
     <section class="card">
 
         <p>LEARNING STREAK</p>
 
-        <h2>
-            <span id="streak">0</span>
-            Days
-        </h2>
+        <div class="streak-number">
+
+            <strong id="streak">
+                0
+            </strong>
+
+            <span>Days</span>
+
+        </div>
 
         <p id="streakMessage">
-            Start your streak today.
+            Start your learning streak today.
         </p>
 
         <button id="completeDay">
@@ -167,7 +242,7 @@
 
     <section class="card">
 
-        <p>TASKS</p>
+        <p>TASK MANAGER</p>
 
         <div class="task-input">
 
@@ -183,7 +258,79 @@
 
         </div>
 
+        <p id="taskCount">
+            0 tasks
+        </p>
+
         <ul id="taskList"></ul>
+
+    </section>
+
+
+    <!-- NOTES -->
+
+    <section class="card">
+
+        <p>QUICK NOTES</p>
+
+        <textarea
+            id="notes"
+            placeholder="Write your notes here..."
+        ></textarea>
+
+        <p id="notesStatus">
+            Saved automatically
+        </p>
+
+        <button id="clearNotes">
+            Clear Notes
+        </button>
+
+    </section>
+
+
+    <!-- SHORTCUTS -->
+
+    <section class="card">
+
+        <p>KEYBOARD SHORTCUTS</p>
+
+        <div class="shortcuts">
+
+            <div>
+                <kbd>T</kbd>
+                <span>Change clock format</span>
+            </div>
+
+            <div>
+                <kbd>S</kbd>
+                <span>Show/hide seconds</span>
+            </div>
+
+            <div>
+                <kbd>F</kbd>
+                <span>Fullscreen</span>
+            </div>
+
+            <div>
+                <kbd>Space</kbd>
+                <span>Start/pause stopwatch</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESET -->
+
+    <section class="card reset-card">
+
+        <p>DASHBOARD</p>
+
+        <button id="resetDashboard">
+            Reset Dashboard Data
+        </button>
 
     </section>
 
@@ -192,13 +339,11 @@
 
 <footer>
 
-    <p>
-        TimeHub
-    </p>
+    <span>TimeHub</span>
 
-    <p>
-        Learning JavaScript every day
-    </p>
+    <span>
+        JavaScript Learning Project
+    </span>
 
 </footer>
 
@@ -209,6 +354,9 @@
 <script src="js/worldclock.js"></script>
 <script src="js/streak.js"></script>
 <script src="js/tasks.js"></script>
+<script src="js/notes.js"></script>
+<script src="js/pomodoro.js"></script>
+<script src="js/shortcuts.js"></script>
 
 </body>
 </html>

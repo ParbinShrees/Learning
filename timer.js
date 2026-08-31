@@ -1,20 +1,20 @@
-// =========================================
+// =============================
 // STOPWATCH
-// =========================================
+// =============================
 
-const stopwatchDisplay =
+const stopwatch =
     document.getElementById(
-        "stopwatchDisplay"
+        "stopwatch"
     );
 
-const stopwatchStart =
+const startStopwatch =
     document.getElementById(
-        "stopwatchStart"
+        "startStopwatch"
     );
 
-const stopwatchReset =
+const resetStopwatch =
     document.getElementById(
-        "stopwatchReset"
+        "resetStopwatch"
     );
 
 
@@ -25,7 +25,7 @@ let stopwatchInterval = null;
 let stopwatchRunning = false;
 
 
-function updateStopwatch() {
+function showStopwatch() {
 
     const hours =
         Math.floor(
@@ -41,15 +41,15 @@ function updateStopwatch() {
         stopwatchSeconds % 60;
 
 
-    stopwatchDisplay.textContent =
-        `${String(hours).padStart(2,"0")}:` +
-        `${String(minutes).padStart(2,"0")}:` +
-        `${String(seconds).padStart(2,"0")}`;
+    stopwatch.textContent =
+        `${String(hours).padStart(2, "0")}:` +
+        `${String(minutes).padStart(2, "0")}:` +
+        `${String(seconds).padStart(2, "0")}`;
 
 }
 
 
-stopwatchStart.addEventListener(
+startStopwatch.addEventListener(
     "click",
     () => {
 
@@ -62,17 +62,18 @@ stopwatchStart.addEventListener(
             stopwatchRunning =
                 false;
 
-            stopwatchStart.textContent =
+            startStopwatch.textContent =
                 "Resume";
 
             return;
+
         }
 
 
         stopwatchRunning =
             true;
 
-        stopwatchStart.textContent =
+        startStopwatch.textContent =
             "Pause";
 
 
@@ -82,7 +83,7 @@ stopwatchStart.addEventListener(
 
                     stopwatchSeconds++;
 
-                    updateStopwatch();
+                    showStopwatch();
 
                 },
                 1000
@@ -92,7 +93,7 @@ stopwatchStart.addEventListener(
 );
 
 
-stopwatchReset.addEventListener(
+resetStopwatch.addEventListener(
     "click",
     () => {
 
@@ -100,51 +101,52 @@ stopwatchReset.addEventListener(
             stopwatchInterval
         );
 
-        stopwatchSeconds = 0;
+        stopwatchSeconds =
+            0;
 
         stopwatchRunning =
             false;
 
-        stopwatchStart.textContent =
+        startStopwatch.textContent =
             "Start";
 
-        updateStopwatch();
+        showStopwatch();
 
     }
 );
 
 
-updateStopwatch();
+showStopwatch();
 
 
-// =========================================
+// =============================
 // COUNTDOWN
-// =========================================
+// =============================
 
-const countdownDisplay =
+const minutesInput =
     document.getElementById(
-        "countdownDisplay"
+        "minutesInput"
     );
 
-const countdownMinutes =
+const countdown =
     document.getElementById(
-        "countdownMinutes"
+        "countdown"
     );
 
-const countdownStart =
+const startCountdown =
     document.getElementById(
-        "countdownStart"
+        "startCountdown"
     );
 
-const countdownReset =
+const resetCountdown =
     document.getElementById(
-        "countdownReset"
+        "resetCountdown"
     );
 
 
 let countdownSeconds =
     Number(
-        countdownMinutes.value
+        minutesInput.value
     ) * 60;
 
 let countdownInterval = null;
@@ -152,7 +154,7 @@ let countdownInterval = null;
 let countdownRunning = false;
 
 
-function updateCountdown() {
+function showCountdown() {
 
     const minutes =
         Math.floor(
@@ -163,36 +165,36 @@ function updateCountdown() {
         countdownSeconds % 60;
 
 
-    countdownDisplay.textContent =
-        `${String(minutes).padStart(2,"0")}:` +
-        `${String(seconds).padStart(2,"0")}`;
+    countdown.textContent =
+        `${String(minutes).padStart(2, "0")}:` +
+        `${String(seconds).padStart(2, "0")}`;
 
 }
 
 
-function resetCountdown() {
+function resetTimer() {
 
     clearInterval(
         countdownInterval
     );
 
+    countdownSeconds =
+        Number(
+            minutesInput.value
+        ) * 60;
+
     countdownRunning =
         false;
 
-    countdownSeconds =
-        Number(
-            countdownMinutes.value
-        ) * 60;
-
-    countdownStart.textContent =
+    startCountdown.textContent =
         "Start";
 
-    updateCountdown();
+    showCountdown();
 
 }
 
 
-countdownStart.addEventListener(
+startCountdown.addEventListener(
     "click",
     () => {
 
@@ -205,16 +207,10 @@ countdownStart.addEventListener(
             countdownRunning =
                 false;
 
-            countdownStart.textContent =
+            startCountdown.textContent =
                 "Resume";
 
             return;
-        }
-
-
-        if (countdownSeconds <= 0) {
-
-            resetCountdown();
 
         }
 
@@ -222,18 +218,13 @@ countdownStart.addEventListener(
         countdownRunning =
             true;
 
-        countdownStart.textContent =
+        startCountdown.textContent =
             "Pause";
 
 
         countdownInterval =
             setInterval(
                 () => {
-
-                    countdownSeconds--;
-
-                    updateCountdown();
-
 
                     if (
                         countdownSeconds <= 0
@@ -246,20 +237,21 @@ countdownStart.addEventListener(
                         countdownRunning =
                             false;
 
-                        countdownSeconds =
-                            0;
-
-                        countdownStart.textContent =
+                        startCountdown.textContent =
                             "Start";
 
-                        updateCountdown();
+                        alert(
+                            "Countdown finished!"
+                        );
 
-                        document.getElementById(
-                            "status"
-                        ).textContent =
-                            "Countdown finished";
+                        return;
 
                     }
+
+
+                    countdownSeconds--;
+
+                    showCountdown();
 
                 },
                 1000
@@ -269,16 +261,16 @@ countdownStart.addEventListener(
 );
 
 
-countdownReset.addEventListener(
+resetCountdown.addEventListener(
     "click",
-    resetCountdown
+    resetTimer
 );
 
 
-countdownMinutes.addEventListener(
+minutesInput.addEventListener(
     "change",
-    resetCountdown
+    resetTimer
 );
 
 
-updateCountdown();
+showCountdown();
