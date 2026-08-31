@@ -1,6 +1,6 @@
-const themeToggle =
+const themeButton =
     document.getElementById(
-        "themeToggle"
+        "themeButton"
     );
 
 const fullscreenButton =
@@ -9,35 +9,7 @@ const fullscreenButton =
     );
 
 
-function loadTheme() {
-
-    const theme =
-        Storage.get(
-            "theme",
-            "dark"
-        );
-
-
-    if (theme === "light") {
-
-        document.body.classList.add(
-            "light"
-        );
-
-        themeToggle.textContent =
-            "Dark Mode";
-
-    } else {
-
-        themeToggle.textContent =
-            "Light Mode";
-
-    }
-
-}
-
-
-themeToggle.addEventListener(
+themeButton.addEventListener(
     "click",
     () => {
 
@@ -46,22 +18,14 @@ themeToggle.addEventListener(
         );
 
 
-        const light =
+        const isLight =
             document.body.classList.contains(
                 "light"
             );
 
 
-        Storage.set(
-            "theme",
-            light
-                ? "light"
-                : "dark"
-        );
-
-
-        themeToggle.textContent =
-            light
+        themeButton.textContent =
+            isLight
                 ? "Dark Mode"
                 : "Light Mode";
 
@@ -73,35 +37,24 @@ fullscreenButton.addEventListener(
     "click",
     async () => {
 
-        try {
+        if (
+            !document.fullscreenElement
+        ) {
 
-            if (
-                !document.fullscreenElement
-            ) {
+            await document.documentElement
+                .requestFullscreen();
 
-                await document.documentElement
-                    .requestFullscreen();
+            fullscreenButton.textContent =
+                "Exit Fullscreen";
 
-                fullscreenButton.textContent =
-                    "Exit Fullscreen";
+        } else {
 
-            } else {
+            await document.exitFullscreen();
 
-                await document.exitFullscreen();
-
-                fullscreenButton.textContent =
-                    "Fullscreen";
-
-            }
-
-        } catch (error) {
-
-            console.error(error);
+            fullscreenButton.textContent =
+                "Fullscreen";
 
         }
 
     }
 );
-
-
-loadTheme();
