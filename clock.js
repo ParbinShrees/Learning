@@ -1,196 +1,113 @@
-const time = document.getElementById("time");
-const date = document.getElementById("date");
-const greeting = document.getElementById("greeting");
+const timeElement = document.getElementById("time");
+const dateElement = document.getElementById("date");
+const greetingElement = document.getElementById("greeting");
+const timezoneElement = document.getElementById("timezone");
 
-const formatButton =
-    document.getElementById("formatButton");
+const formatButton = document.getElementById("formatButton");
+const secondsButton = document.getElementById("secondsButton");
+const dayProgress = document.getElementById("dayProgress");
+const dayProgressBar = document.getElementById("dayProgressBar");
 
-const secondsButton =
-    document.getElementById("secondsButton");
-
-const timezone =
-    document.getElementById("timezone");
-
-const dayProgress =
-    document.getElementById("dayProgress");
-
-const dayProgressBar =
-    document.getElementById("dayProgressBar");
-
-
-let is24Hour = true;
+let use24Hour = false;
 let showSeconds = true;
 
-
-timezone.textContent =
-    `Timezone: ${
-        Intl.DateTimeFormat()
-            .resolvedOptions()
-            .timeZone
-    }`;
-
-
-function pad(number) {
-
-    return String(number)
-        .padStart(2, "0");
-
-}
-
-
-function updateGreeting(hour) {
-
-    if (hour < 5) {
-
-        greeting.textContent =
-            "Good night";
-
-    } else if (hour < 12) {
-
-        greeting.textContent =
-            "Good morning";
-
-    } else if (hour < 18) {
-
-        greeting.textContent =
-            "Good afternoon";
-
-    } else {
-
-        greeting.textContent =
-            "Good evening";
-
-    }
-
-}
-
-
 function updateClock() {
+    const now = new Date();
 
-    const now =
-        new Date();
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
 
+    let period = "";
 
-    let hours =
-        now.getHours();
+    if (!use24Hour) {
+        period = hours >= 12 ? "PM" : "AM";
 
-    const minutes =
-        pad(now.getMinutes());
+        hours = hours % 12;
 
-    const seconds =
-        pad(now.getSeconds());
-
-
-    updateGreeting(hours);
-
-
-    if (is24Hour) {
-
-        hours =
-            pad(hours);
-
-        time.textContent =
-            `${hours}:${minutes}` +
-            (
-                showSeconds
-                    ? `:${seconds}`
-                    : ""
-            );
-
-    } else {
-
-        const period =
-            hours >= 12
-                ? "PM"
-                : "AM";
-
-
-        hours =
-            hours % 12 || 12;
-
-
-        time.textContent =
-            `${hours}:${minutes}` +
-            (
-                showSeconds
-                    ? `:${seconds}`
-                    : ""
-            ) +
-            ` ${period}`;
-
+        if (hours === 0) {
+            hours = 12;
+        }
     }
 
+    hours = String(hours).padStart(2, "0");
 
-    date.textContent =
-        now.toLocaleDateString(
-            "en-US",
-            {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric"
-            }
-        );
+    let currentTime = `${hours}:${minutes}`;
 
+    if (showSeconds) {
+        currentTime += `:${seconds}`;
+    }
 
-    const passed =
+    if (!use24Hour) {
+        currentTime += ` ${period}`;
+    }
+
+    timeElement.textContent = currentTime;
+
+    dateElement.textContent = now.toLocaleDateString(
+        "en-US",
+        {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        }
+    );
+
+    const currentHour = now.getHours();
+
+    if (currentHour < 12) {
+        greetingElement.textContent = "Good morning";
+    } else if (currentHour < 18) {
+        greetingElement.textContent = "Good afternoon";
+    } else {
+        greetingElement.textContent = "Good evening";
+    }
+
+    timezoneElement.textContent =
+        Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    updateDayProgress(now);
+}
+
+function updateDayProgress(now) {
+    const secondsToday =
         now.getHours() * 3600 +
         now.getMinutes() * 60 +
         now.getSeconds();
 
+    const totalSeconds = 24 * 60 * 60;
 
     const percentage =
-        passed / 86400 * 100;
-
+        (secondsToday / totalSeconds) * 100;
 
     dayProgress.textContent =
         `${percentage.toFixed(1)}%`;
 
     dayProgressBar.style.width =
         `${percentage}%`;
-
 }
 
+formatButton.addEventListener("click", () => {
+    use24Hour = !use24Hour;
 
-formatButton.addEventListener(
-    "click",
-    () => {
+    formatButton.textContent =
+        use24Hour ? "24 Hour" : "12 Hour";
 
-        is24Hour =
-            !is24Hour;
+    updateClock();
+});
 
-        formatButton.textContent =
-            is24Hour
-                ? "12 Hour"
-                : "24 Hour";
+secondsButton.addEventListener("click", () => {
+    showSeconds = !showSeconds;
 
-        updateClock();
+    secondsButton.textContent =
+        showSeconds
+            ? "Hide Seconds"
+            : "Show Seconds";
 
-    }
-);
-
-
-secondsButton.addEventListener(
-    "click",
-    () => {
-
-        showSeconds =
-            !showSeconds;
-
-        secondsButton.textContent =
-            showSeconds
-                ? "Hide Seconds"
-                : "Show Seconds";
-
-        updateClock();
-
-    }
-);
-
+    updateClock();
+});
 
 updateClock();
 
-setInterval(
-    updateClock,
-    1000
-);
+setInterval(updateClock, 1000);
