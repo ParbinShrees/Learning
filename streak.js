@@ -1,241 +1,95 @@
-// =========================================
-// LEARNING STREAK
-// =========================================
-
-const streakCount =
-    document.getElementById(
-        "streakCount"
-    );
-
-const todayStatus =
-    document.getElementById(
-        "todayStatus"
-    );
-
-const lastUpdate =
-    document.getElementById(
-        "lastUpdate"
-    );
-
-const completeDayButton =
-    document.getElementById(
-        "completeDayButton"
-    );
+const streakElement =
+    document.getElementById("streak");
 
 const streakMessage =
-    document.getElementById(
-        "streakMessage"
-    );
+    document.getElementById("streakMessage");
 
-const streakGoalText =
-    document.getElementById(
-        "streakGoalText"
-    );
+const completeDay =
+    document.getElementById("completeDay");
 
-const streakDays =
-    document.querySelectorAll(
-        ".streak-day"
-    );
+const streakBoxes =
+    document.querySelectorAll(".streak-box span");
 
+let streakData =
+    JSON.parse(
+        localStorage.getItem("timehub-streak")
+    ) || {
+        count: 0,
+        lastCompleted: null
+    };
 
 function getToday() {
-
-    const date =
-        new Date();
-
-    return date
+    return new Date()
         .toISOString()
         .split("T")[0];
-
 }
 
+function updateStreakDisplay() {
+    streakElement.textContent =
+        streakData.count;
 
-function getYesterday() {
+    const today = getToday();
 
-    const date =
-        new Date();
-
-    date.setDate(
-        date.getDate() - 1
-    );
-
-    return date
-        .toISOString()
-        .split("T")[0];
-
-}
-
-
-function loadStreak() {
-
-    let streak =
-        Storage.get(
-            "learningStreak",
-            0
-        );
-
-    const lastCompleted =
-        Storage.get(
-            "lastCompletedDay",
-            null
-        );
-
-
-    // RESET STREAK IF DAY WAS MISSED
-
-    if (
-        lastCompleted &&
-        lastCompleted !== getToday() &&
-        lastCompleted !== getYesterday()
-    ) {
-
-        streak = 0;
-
-        Storage.set(
-            "learningStreak",
-            0
-        );
-
-    }
-
-
-    streakCount.textContent =
-        streak;
-
-
-    streakDays.forEach(
-        (element) => {
-
-            const day =
-                Number(
-                    element.dataset.day
-                );
-
-
-            element.classList.toggle(
-                "active",
-                day <= Math.min(streak,10)
-            );
-
-        }
-    );
-
-
-    streakGoalText.textContent =
-        `${Math.min(streak,10)} / 10`;
-
-
-    if (
-        lastCompleted ===
-        getToday()
-    ) {
-
-        todayStatus.textContent =
-            "Today's learning is complete";
-
-        lastUpdate.textContent =
-            `Completed on ${lastCompleted}`;
-
-        completeDayButton.textContent =
-            "Completed";
-
-        completeDayButton.disabled =
-            true;
-
-
-        if (streak >= 10) {
-
-            streakMessage.textContent =
-                "10 day goal completed. Keep the habit going!";
-
-        } else {
-
-            streakMessage.textContent =
-                `${streak} day streak active.`;
-
-        }
-
-    } else {
-
-        todayStatus.textContent =
-            "Complete today's learning";
-
-        lastUpdate.textContent =
-            "You have not completed today's update.";
-
-        completeDayButton.textContent =
-            "Complete Today";
-
-        completeDayButton.disabled =
-            false;
-
+    if (streakData.lastCompleted === today) {
         streakMessage.textContent =
-            `Current streak: ${streak} days`;
+            "Today's learning goal is complete.";
 
+        completeDay.textContent =
+            "Completed Today";
+    } else {
+        streakMessage.textContent =
+            "Start your learning streak today.";
+
+        completeDay.textContent =
+            "Complete Today";
     }
 
+    streakBoxes.forEach((box, index) => {
+        if (index < streakData.count) {
+            box.classList.add("completed");
+        } else {
+            box.classList.remove("completed");
+        }
+    });
 }
 
+completeDay.addEventListener("click", () => {
+    const today = getToday();
 
-completeDayButton.addEventListener(
-    "click",
-    () => {
-
-        const today =
-            getToday();
-
-        const lastCompleted =
-            Storage.get(
-                "lastCompletedDay",
-                null
-            );
-
-
-        if (
-            lastCompleted === today
-        ) {
-
-            return;
-
-        }
-
-
-        let streak =
-            Storage.get(
-                "learningStreak",
-                0
-            );
-
-
-        if (
-            lastCompleted !==
-            getYesterday()
-        ) {
-
-            streak = 0;
-
-        }
-
-
-        streak++;
-
-
-        Storage.set(
-            "learningStreak",
-            streak
-        );
-
-
-        Storage.set(
-            "lastCompletedDay",
-            today
-        );
-
-
-        loadStreak();
-
+    if (streakData.lastCompleted === today) {
+        return;
     }
-);
 
+    if (streakData.lastCompleted) {
+        const previousDate =
+            new Date(streakData.lastCompleted);
 
-loadStreak();
+        const currentDate =
+            new Date(today);
+
+        const difference =
+            Math.floor(
+                (currentDate - previousDate) /
+                (1000 * 60 * 60 * 24)
+            );
+
+        if (difference === 1) {
+            streakData.count++;
+        } else {
+            streakData.count = 1;
+        }
+    } else {
+        streakData.count = 1;
+    }
+
+    streakData.lastCompleted = today;
+
+    localStorage.setItem(
+        "timehub-streak",
+        JSON.stringify(streakData)
+    );
+
+    updateStreakDisplay();
+});
+
+updateStreakDisplay();
